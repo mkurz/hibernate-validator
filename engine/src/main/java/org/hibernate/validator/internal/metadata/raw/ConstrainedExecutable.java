@@ -22,7 +22,7 @@ import org.hibernate.validator.internal.util.logging.LoggerFactory;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newArrayList;
 import static org.hibernate.validator.internal.util.CollectionHelper.newHashMap;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 /**
  * Represents a method or constructor of a Java type and all its associated
@@ -285,13 +285,13 @@ public class ConstrainedExecutable extends AbstractConstrainedElement {
 			i++;
 		}
 
-		Set<MetaConstraint<?>> mergedCrossParameterConstraints = newHashSet( crossParameterConstraints );
+		Set<MetaConstraint<?>> mergedCrossParameterConstraints = newLinkedHashSet( crossParameterConstraints );
 		mergedCrossParameterConstraints.addAll( other.crossParameterConstraints );
 
-		Set<MetaConstraint<?>> mergedReturnValueConstraints = newHashSet( constraints );
+		Set<MetaConstraint<?>> mergedReturnValueConstraints = newLinkedHashSet( constraints );
 		mergedReturnValueConstraints.addAll( other.constraints );
 
-		Set<MetaConstraint<?>> mergedTypeArgumentsConstraints = newHashSet( typeArgumentsConstraints );
+		Set<MetaConstraint<?>> mergedTypeArgumentsConstraints = newLinkedHashSet( typeArgumentsConstraints );
 		mergedTypeArgumentsConstraints.addAll( other.typeArgumentsConstraints );
 
 		Map<Class<?>, Class<?>> mergedGroupConversions = newHashMap( groupConversions );
@@ -320,7 +320,7 @@ public class ConstrainedExecutable extends AbstractConstrainedElement {
 	}
 
 	private Set<ConstraintDescriptor<?>> getDescriptors(Iterable<MetaConstraint<?>> constraints) {
-		Set<ConstraintDescriptor<?>> descriptors = newHashSet();
+		Set<ConstraintDescriptor<?>> descriptors = newLinkedHashSet();
 
 		for ( MetaConstraint<?> constraint : constraints ) {
 			descriptors.add( constraint.getDescriptor() );

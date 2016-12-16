@@ -51,7 +51,7 @@ import org.hibernate.validator.internal.util.privilegedactions.GetDeclaredMethod
 import org.hibernate.validator.internal.util.privilegedactions.GetMethod;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newHashMap;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 /**
  * Describes a single constraint (including it's composing constraints).
@@ -518,7 +518,7 @@ public class ConstraintDescriptorImpl<T extends Annotation> implements Constrain
 
 	@SuppressWarnings("unchecked")
 	private Set<Class<? extends Payload>> buildPayloadSet(T annotation) {
-		Set<Class<? extends Payload>> payloadSet = newHashSet();
+		Set<Class<? extends Payload>> payloadSet = newLinkedHashSet();
 		Class<Payload>[] payloadFromAnnotation;
 		try {
 			//TODO be extra safe and make sure this is an array of Payload
@@ -537,7 +537,7 @@ public class ConstraintDescriptorImpl<T extends Annotation> implements Constrain
 	}
 
 	private Set<Class<?>> buildGroupSet(Class<?> implicitGroup) {
-		Set<Class<?>> groupSet = newHashSet();
+		Set<Class<?>> groupSet = newLinkedHashSet();
 		final Class<?>[] groupsFromAnnotation = run(
 				GetAnnotationParameter.action( annotation, ConstraintHelper.GROUPS, Class[].class )
 		);
@@ -617,7 +617,7 @@ public class ConstraintDescriptorImpl<T extends Annotation> implements Constrain
 	}
 
 	private Set<ConstraintDescriptorImpl<?>> parseComposingConstraints(Member member, ConstraintHelper constraintHelper, ConstraintType constraintType) {
-		Set<ConstraintDescriptorImpl<?>> composingConstraintsSet = newHashSet();
+		Set<ConstraintDescriptorImpl<?>> composingConstraintsSet = newLinkedHashSet();
 		Map<ClassIndexWrapper, Map<String, Object>> overrideParameters = parseOverrideParameters();
 
 		for ( Annotation declaredAnnotation : annotationType.getDeclaredAnnotations() ) {

@@ -17,7 +17,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -33,7 +33,7 @@ public abstract class AnnotationParametersAbstractCheck extends AbstractConstrai
 
 	public AnnotationParametersAbstractCheck(AnnotationApiHelper annotationApiHelper, String... annotationClass) {
 		this.annotationApiHelper = annotationApiHelper;
-		this.annotationClasses = new HashSet<String>( Arrays.asList( annotationClass ) );
+		this.annotationClasses = new LinkedHashSet<String>( Arrays.asList( annotationClass ) );
 	}
 
 	@Override

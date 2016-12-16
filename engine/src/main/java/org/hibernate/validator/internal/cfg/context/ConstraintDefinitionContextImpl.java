@@ -6,7 +6,7 @@
  */
 package org.hibernate.validator.internal.cfg.context;
 
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.lang.annotation.Annotation;
 import java.util.Set;
@@ -32,7 +32,7 @@ class ConstraintDefinitionContextImpl<A extends Annotation>
 
 	private boolean includeExistingValidators = true;
 
-	private final Set<Class<? extends ConstraintValidator<A, ?>>> validatorTypes = newHashSet();
+	private final Set<Class<? extends ConstraintValidator<A, ?>>> validatorTypes = newLinkedHashSet();
 
 	ConstraintDefinitionContextImpl(DefaultConstraintMapping mapping, Class<A> annotationType) {
 		super( mapping );

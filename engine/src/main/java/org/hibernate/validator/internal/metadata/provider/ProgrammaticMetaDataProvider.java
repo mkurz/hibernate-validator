@@ -21,7 +21,7 @@ import org.hibernate.validator.internal.util.Contracts;
 import org.hibernate.validator.internal.util.logging.Log;
 import org.hibernate.validator.internal.util.logging.LoggerFactory;
 
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 /**
  * A {@link MetaDataProvider} based on the programmatic constraint API.
@@ -45,7 +45,7 @@ public class ProgrammaticMetaDataProvider extends MetaDataProviderKeyedByClassNa
 	}
 
 	private void assertUniquenessOfConfiguredTypes(Set<DefaultConstraintMapping> mappings) {
-		Set<Class<?>> allConfiguredTypes = newHashSet();
+		Set<Class<?>> allConfiguredTypes = newLinkedHashSet();
 
 		for ( DefaultConstraintMapping constraintMapping : mappings ) {
 			for ( Class<?> configuredType : constraintMapping.getConfiguredTypes() ) {

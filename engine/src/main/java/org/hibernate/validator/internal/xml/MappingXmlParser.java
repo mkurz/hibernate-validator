@@ -8,7 +8,7 @@ package org.hibernate.validator.internal.xml;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newArrayList;
 import static org.hibernate.validator.internal.util.CollectionHelper.newHashMap;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.io.FilterInputStream;
 import java.io.IOException;
@@ -58,7 +58,7 @@ public class MappingXmlParser {
 
 	private static final Log log = LoggerFactory.make();
 
-	private final Set<Class<?>> processedClasses = newHashSet();
+	private final Set<Class<?>> processedClasses = newLinkedHashSet();
 	private final ConstraintHelper constraintHelper;
 	private final AnnotationProcessingOptionsImpl annotationProcessingOptions;
 	private final Map<Class<?>, List<Class<?>>> defaultSequences;
@@ -133,7 +133,7 @@ public class MappingXmlParser {
 					annotationProcessingOptions
 			);
 
-			Set<String> alreadyProcessedConstraintDefinitions = newHashSet();
+			Set<String> alreadyProcessedConstraintDefinitions = newLinkedHashSet();
 			for ( InputStream in : mappingStreams ) {
 
 				// check whether mark is supported, if so we can reset the stream in order to allow reuse of Configuration
@@ -313,7 +313,7 @@ public class MappingXmlParser {
 			constrainedElements.get( beanClass ).add( constrainedElement );
 		}
 		else {
-			Set<ConstrainedElement> tmpList = newHashSet();
+			Set<ConstrainedElement> tmpList = newLinkedHashSet();
 			tmpList.add( constrainedElement );
 			constrainedElements.put( beanClass, tmpList );
 		}
@@ -338,7 +338,7 @@ public class MappingXmlParser {
 			}
 		}
 		else {
-			Set<ConstrainedElement> tmpSet = newHashSet();
+			Set<ConstrainedElement> tmpSet = newLinkedHashSet();
 			tmpSet.addAll( newConstrainedElements );
 			constrainedElements.put( beanClass, tmpSet );
 		}

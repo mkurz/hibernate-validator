@@ -21,7 +21,7 @@ public class ValidatableParametersMetaData implements Validatable {
 	private final Iterable<Cascadable> cascadables;
 
 	public ValidatableParametersMetaData(Iterable<? extends Cascadable> cascadables) {
-		this.cascadables = CollectionHelper.<Cascadable>newHashSet( cascadables );
+		this.cascadables = CollectionHelper.<Cascadable>newLinkedHashSet( cascadables );
 	}
 
 	@Override

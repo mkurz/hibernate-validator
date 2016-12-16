@@ -51,7 +51,7 @@ import org.hibernate.validator.internal.util.logging.LoggerFactory;
 import org.hibernate.validator.spi.group.DefaultGroupSequenceProvider;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newHashMap;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 import static org.hibernate.validator.internal.util.CollectionHelper.partition;
 
 /**
@@ -154,8 +154,8 @@ public final class BeanMetaDataImpl<T> implements BeanMetaData<T> {
 		this.beanClass = beanClass;
 		this.propertyMetaDataMap = newHashMap();
 
-		Set<PropertyMetaData> propertyMetaDataSet = newHashSet();
-		Set<ExecutableMetaData> executableMetaDataSet = newHashSet();
+		Set<PropertyMetaData> propertyMetaDataSet = newLinkedHashSet();
+		Set<ExecutableMetaData> executableMetaDataSet = newLinkedHashSet();
 
 		for ( ConstraintMetaData constraintMetaData : constraintMetaDataSet ) {
 			if ( constraintMetaData.getKind() == ElementKind.PROPERTY ) {
@@ -166,8 +166,8 @@ public final class BeanMetaDataImpl<T> implements BeanMetaData<T> {
 			}
 		}
 
-		Set<Cascadable> cascadedProperties = newHashSet();
-		Set<MetaConstraint<?>> allMetaConstraints = newHashSet();
+		Set<Cascadable> cascadedProperties = newLinkedHashSet();
+		Set<MetaConstraint<?>> allMetaConstraints = newLinkedHashSet();
 
 		for ( PropertyMetaData propertyMetaData : propertyMetaDataSet ) {
 			propertyMetaDataMap.put( propertyMetaData.getName(), propertyMetaData );
@@ -315,7 +315,7 @@ public final class BeanMetaDataImpl<T> implements BeanMetaData<T> {
 	private Set<ConstraintDescriptorImpl<?>> getClassLevelConstraintsAsDescriptors() {
 		Set<MetaConstraint<?>> classLevelConstraints = getClassLevelConstraints( allMetaConstraints );
 
-		Set<ConstraintDescriptorImpl<?>> theValue = newHashSet();
+		Set<ConstraintDescriptorImpl<?>> theValue = newLinkedHashSet();
 
 		for ( MetaConstraint<?> metaConstraint : classLevelConstraints ) {
 			theValue.add( metaConstraint.getDescriptor() );
@@ -418,9 +418,9 @@ public final class BeanMetaDataImpl<T> implements BeanMetaData<T> {
 	}
 
 	private Set<MetaConstraint<?>> getDirectConstraints() {
-		Set<MetaConstraint<?>> constraints = newHashSet();
+		Set<MetaConstraint<?>> constraints = newLinkedHashSet();
 
-		Set<Class<?>> classAndInterfaces = newHashSet();
+		Set<Class<?>> classAndInterfaces = newLinkedHashSet();
 		classAndInterfaces.add( beanClass );
 		classAndInterfaces.addAll( ClassHierarchyHelper.getDirectlyImplementedInterfaces( beanClass ) );
 
@@ -513,7 +513,7 @@ public final class BeanMetaDataImpl<T> implements BeanMetaData<T> {
 
 		private final Class<T> beanClass;
 
-		private final Set<BuilderDelegate> builders = newHashSet();
+		private final Set<BuilderDelegate> builders = newLinkedHashSet();
 
 		private final ExecutableHelper executableHelper;
 
@@ -599,7 +599,7 @@ public final class BeanMetaDataImpl<T> implements BeanMetaData<T> {
 		}
 
 		public BeanMetaDataImpl<T> build() {
-			Set<ConstraintMetaData> aggregatedElements = newHashSet();
+			Set<ConstraintMetaData> aggregatedElements = newLinkedHashSet();
 
 			for ( BuilderDelegate builder : builders ) {
 				aggregatedElements.addAll( builder.build() );
@@ -710,7 +710,7 @@ public final class BeanMetaDataImpl<T> implements BeanMetaData<T> {
 		}
 
 		public Set<ConstraintMetaData> build() {
-			Set<ConstraintMetaData> metaDataSet = newHashSet();
+			Set<ConstraintMetaData> metaDataSet = newLinkedHashSet();
 
 			if ( propertyBuilder != null ) {
 				metaDataSet.add( propertyBuilder.build() );

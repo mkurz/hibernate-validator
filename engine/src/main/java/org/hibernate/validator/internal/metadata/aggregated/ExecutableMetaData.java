@@ -11,7 +11,7 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -37,7 +37,7 @@ import org.hibernate.validator.internal.util.logging.LoggerFactory;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newArrayList;
 import static org.hibernate.validator.internal.util.CollectionHelper.newHashMap;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 /**
  * An aggregated view of the constraint related meta data for a given method or
@@ -163,7 +163,7 @@ public class ExecutableMetaData extends AbstractConstraintMetaData {
 	}
 
 	public ValidatableParametersMetaData getValidatableParametersMetaData() {
-		Set<ParameterMetaData> cascadedParameters = newHashSet();
+		Set<ParameterMetaData> cascadedParameters = newLinkedHashSet();
 
 		for ( ParameterMetaData parameterMetaData : parameterMetaDataList ) {
 			if ( parameterMetaData.isCascading() ) {
@@ -261,16 +261,16 @@ public class ExecutableMetaData extends AbstractConstraintMetaData {
 	 * @author Kevin Pollet &lt;kevin.pollet@serli.com&gt; (C) 2011 SERLI
 	 */
 	public static class Builder extends MetaDataBuilder {
-		private final Set<String> signatures = newHashSet();
+		private final Set<String> signatures = newLinkedHashSet();
 
 		/**
 		 * Either CONSTRUCTOR or METHOD.
 		 */
 		private final ConstrainedElement.ConstrainedElementKind kind;
-		private final Set<ConstrainedExecutable> constrainedExecutables = newHashSet();
+		private final Set<ConstrainedExecutable> constrainedExecutables = newLinkedHashSet();
 		private ExecutableElement executable;
-		private final Set<MetaConstraint<?>> crossParameterConstraints = newHashSet();
-		private final Set<MetaConstraint<?>> typeArgumentsConstraints = newHashSet();
+		private final Set<MetaConstraint<?>> crossParameterConstraints = newLinkedHashSet();
+		private final Set<MetaConstraint<?>> typeArgumentsConstraints = newLinkedHashSet();
 		private final Set<MethodConfigurationRule> rules;
 		private boolean isConstrained = false;
 
@@ -305,7 +305,7 @@ public class ExecutableMetaData extends AbstractConstraintMetaData {
 			this.executableHelper = executableHelper;
 			this.kind = constrainedExecutable.getKind();
 			this.executable = constrainedExecutable.getExecutable();
-			this.rules = new HashSet<MethodConfigurationRule>( methodValidationConfiguration.getConfiguredRuleSet() );
+			this.rules = new LinkedHashSet<MethodConfigurationRule>( methodValidationConfiguration.getConfiguredRuleSet() );
 
 			add( constrainedExecutable );
 		}

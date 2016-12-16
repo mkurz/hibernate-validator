@@ -36,7 +36,7 @@ import org.hibernate.validator.internal.util.logging.Log;
 import org.hibernate.validator.internal.util.logging.LoggerFactory;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newArrayList;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 import static org.hibernate.validator.internal.util.logging.Messages.MESSAGES;
 
 /**
@@ -143,7 +143,7 @@ public class TypeAnnotationAwareMetaDataProvider extends AnnotationMetaDataProvi
 	 * Creates meta constraints for type arguments constraints.
 	 */
 	private Set<MetaConstraint<?>> convertToTypeArgumentMetaConstraints(List<ConstraintDescriptorImpl<?>> constraintDescriptors, Member member, Type type) {
-		Set<MetaConstraint<?>> constraints = newHashSet( constraintDescriptors.size() );
+		Set<MetaConstraint<?>> constraints = newLinkedHashSet( constraintDescriptors.size() );
 		for ( ConstraintDescriptorImpl<?> constraintDescription : constraintDescriptors ) {
 			MetaConstraint<?> metaConstraint = createTypeArgumentMetaConstraint( member, constraintDescription, type );
 			constraints.add( metaConstraint );

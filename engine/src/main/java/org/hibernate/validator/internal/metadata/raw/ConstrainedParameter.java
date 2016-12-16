@@ -16,7 +16,7 @@ import org.hibernate.validator.internal.metadata.core.MetaConstraint;
 import org.hibernate.validator.internal.metadata.location.ConstraintLocation;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newHashMap;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 /**
  * Contains constraint-related meta-data for one method parameter.
@@ -144,10 +144,10 @@ public class ConstrainedParameter extends AbstractConstrainedElement {
 			mergedUnwrapMode = other.unwrapMode;
 		}
 
-		Set<MetaConstraint<?>> mergedConstraints = newHashSet( constraints );
+		Set<MetaConstraint<?>> mergedConstraints = newLinkedHashSet( constraints );
 		mergedConstraints.addAll( other.constraints );
 
-		Set<MetaConstraint<?>> mergedTypeArgumentsConstraints = newHashSet( typeArgumentsConstraints );
+		Set<MetaConstraint<?>> mergedTypeArgumentsConstraints = newLinkedHashSet( typeArgumentsConstraints );
 		mergedTypeArgumentsConstraints.addAll( other.typeArgumentsConstraints );
 
 		Map<Class<?>, Class<?>> mergedGroupConversions = newHashMap( groupConversions );

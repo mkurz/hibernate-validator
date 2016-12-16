@@ -12,7 +12,7 @@ import java.security.AccessController;
 import java.security.PrivilegedExceptionAction;
 import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -170,7 +170,7 @@ public class ValidationXmlParser {
 				config.getParameterNameProvider(),
 				defaultValidatedExecutableTypes,
 				executableValidationEnabled,
-				new HashSet<String>( config.getConstraintMapping() ),
+				new LinkedHashSet<String>( config.getConstraintMapping() ),
 				properties
 		);
 	}

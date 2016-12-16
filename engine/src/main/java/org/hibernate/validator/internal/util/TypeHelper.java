@@ -38,7 +38,7 @@ import org.hibernate.validator.internal.util.logging.Log;
 import org.hibernate.validator.internal.util.logging.LoggerFactory;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newHashMap;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 /**
  * Provides utility methods for working with types.
@@ -389,7 +389,7 @@ public final class TypeHelper {
 
 	private static void putPrimitiveSubtypes(Map<Class<?>, Set<Class<?>>> subtypesByPrimitive, Class<?> primitiveType,
 											 Class<?>... directSubtypes) {
-		Set<Class<?>> subtypes = newHashSet();
+		Set<Class<?>> subtypes = newLinkedHashSet();
 
 		for ( Class<?> directSubtype : directSubtypes ) {
 			subtypes.add( directSubtype );
