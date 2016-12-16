@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -69,6 +70,10 @@ public final class CollectionHelper {
 			set.add( t );
 		}
 		return set;
+	}
+
+	public static <T> LinkedHashSet<T> newLinkedHashSet() {
+		return new LinkedHashSet<T>();
 	}
 
 	public static <T> ArrayList<T> newArrayList() {

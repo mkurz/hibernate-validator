@@ -7,7 +7,7 @@
 package org.hibernate.validator.internal.engine;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newHashMap;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.lang.reflect.Executable;
 import java.lang.reflect.Type;
@@ -185,7 +185,7 @@ public class ValidationContext<T> {
 		this.processedBeansPerGroup = newHashMap();
 		this.processedPathsPerBean = new IdentityHashMap<>();
 		this.processedMetaConstraints = newHashMap();
-		this.failingConstraintViolations = newHashSet();
+		this.failingConstraintViolations = newLinkedHashSet();
 	}
 
 	public static ValidationContextBuilder getValidationContext(
@@ -255,7 +255,7 @@ public class ValidationContext<T> {
 
 	public Set<ConstraintViolation<T>> createConstraintViolations(ValueContext<?, ?> localContext,
 			ConstraintValidatorContextImpl constraintValidatorContext) {
-		Set<ConstraintViolation<T>> constraintViolations = newHashSet();
+		Set<ConstraintViolation<T>> constraintViolations = newLinkedHashSet();
 		for ( ConstraintViolationCreationContext constraintViolationCreationContext : constraintValidatorContext.getConstraintViolationCreationContexts() ) {
 			ConstraintViolation<T> violation = createConstraintViolation(
 					localContext,
