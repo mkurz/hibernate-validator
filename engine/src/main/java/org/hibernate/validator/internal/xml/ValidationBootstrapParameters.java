@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -46,7 +46,7 @@ public class ValidationBootstrapParameters {
 	private ValidationProvider<?> provider;
 	private Class<? extends ValidationProvider<?>> providerClass = null;
 	private final Map<String, String> configProperties = new HashMap<>();
-	private final Set<InputStream> mappings = new HashSet<>();
+	private final Set<InputStream> mappings = new LinkedHashSet<>();
 	private final Map<ValueExtractorDescriptor.Key, ValueExtractorDescriptor> valueExtractorDescriptors = new HashMap<>();
 
 	public ValidationBootstrapParameters() {

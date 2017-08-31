@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
@@ -108,7 +108,7 @@ public class ContainerElementConstraintMappingContextImpl extends CascadableCons
 		}
 
 		this.index = index;
-		this.constraints = new HashSet<>();
+		this.constraints = new LinkedHashSet<>();
 		this.nestedContainerElementContexts = new HashMap<>();
 	}
 

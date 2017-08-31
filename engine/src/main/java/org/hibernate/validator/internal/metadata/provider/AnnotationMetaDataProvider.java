@@ -8,7 +8,7 @@ package org.hibernate.validator.internal.metadata.provider;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newArrayList;
 import static org.hibernate.validator.internal.util.CollectionHelper.newHashMap;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 import static org.hibernate.validator.internal.util.logging.Messages.MESSAGES;
 
 import java.lang.annotation.Annotation;
@@ -33,7 +33,7 @@ import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -191,7 +191,7 @@ public class AnnotationMetaDataProvider implements MetaDataProvider {
 			return Collections.emptySet();
 		}
 
-		Set<MetaConstraint<?>> classLevelConstraints = newHashSet();
+		Set<MetaConstraint<?>> classLevelConstraints = newLinkedHashSet();
 
 		// HV-262
 		List<ConstraintDescriptorImpl<?>> classMetaData = findClassLevelConstraints( clazz );
@@ -206,7 +206,7 @@ public class AnnotationMetaDataProvider implements MetaDataProvider {
 	}
 
 	private Set<ConstrainedElement> getFieldMetaData(Class<?> beanClass) {
-		Set<ConstrainedElement> propertyMetaData = newHashSet();
+		Set<ConstrainedElement> propertyMetaData = newLinkedHashSet();
 
 		for ( Field field : run( GetDeclaredFields.action( beanClass ) ) ) {
 			// HV-172
@@ -245,7 +245,7 @@ public class AnnotationMetaDataProvider implements MetaDataProvider {
 			return Collections.emptySet();
 		}
 
-		Set<MetaConstraint<?>> constraints = newHashSet();
+		Set<MetaConstraint<?>> constraints = newLinkedHashSet();
 
 		ConstraintLocation location = ConstraintLocation.forField( field );
 
@@ -268,7 +268,7 @@ public class AnnotationMetaDataProvider implements MetaDataProvider {
 	}
 
 	private Set<ConstrainedExecutable> getMetaData(Executable[] executableElements) {
-		Set<ConstrainedExecutable> executableMetaData = newHashSet();
+		Set<ConstrainedExecutable> executableMetaData = newLinkedHashSet();
 
 		for ( Executable executable : executableElements ) {
 			// HV-172; ignoring synthetic methods (inserted by the compiler), as they can't have any constraints
@@ -345,7 +345,7 @@ public class AnnotationMetaDataProvider implements MetaDataProvider {
 			return Collections.emptySet();
 		}
 
-		Set<MetaConstraint<?>> constraints = newHashSet();
+		Set<MetaConstraint<?>> constraints = newLinkedHashSet();
 
 		ConstraintLocation returnValueLocation = ConstraintLocation.forReturnValue( executable );
 		ConstraintLocation crossParameterLocation = ConstraintLocation.forCrossParameter( executable );
@@ -387,7 +387,7 @@ public class AnnotationMetaDataProvider implements MetaDataProvider {
 				parameterAnnotations = new Annotation[0];
 			}
 
-			Set<MetaConstraint<?>> parameterConstraints = newHashSet();
+			Set<MetaConstraint<?>> parameterConstraints = newLinkedHashSet();
 
 			if ( annotationProcessingOptions.areParameterConstraintsIgnoredFor( executable, i ) ) {
 				Type type = ReflectionHelper.typeOf( executable, i );
@@ -723,7 +723,7 @@ public class AnnotationMetaDataProvider implements MetaDataProvider {
 			return Collections.emptySet();
 		}
 
-		Set<MetaConstraint<?>> typeArgumentConstraints = new HashSet<>();
+		Set<MetaConstraint<?>> typeArgumentConstraints = new LinkedHashSet<>();
 
 		// if we have an array, we need to unwrap the array first
 		if ( annotatedType instanceof AnnotatedArrayType ) {

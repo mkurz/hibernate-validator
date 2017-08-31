@@ -6,9 +6,9 @@
  */
 package org.hibernate.validator.internal.engine;
 
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.hibernate.validator.internal.metadata.aggregated.rule.MethodConfigurationRule;
@@ -90,7 +90,7 @@ public class MethodValidationConfiguration {
 
 	private static Set<MethodConfigurationRule> buildConfiguredRuleSet(boolean allowOverridingMethodAlterParameterConstraint,
 			boolean allowMultipleCascadedValidationOnReturnValues, boolean allowParallelMethodsDefineParameterConstraints) {
-		HashSet<MethodConfigurationRule> result = newHashSet( 5 );
+		LinkedHashSet<MethodConfigurationRule> result = newLinkedHashSet( 5 );
 
 		if ( !allowOverridingMethodAlterParameterConstraint ) {
 			result.add( new OverridingMethodMustNotAlterParameterConstraints() );

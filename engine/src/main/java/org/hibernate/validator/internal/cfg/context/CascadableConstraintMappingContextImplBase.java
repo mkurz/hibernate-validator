@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -51,7 +51,7 @@ abstract class CascadableConstraintMappingContextImplBase<C extends Cascadable<C
 	 * Contexts for configuring nested container elements, if any. Indexed by type parameter.
 	 */
 	private final Map<Integer, ContainerElementConstraintMappingContextImpl> containerElementContexts = new HashMap<>();
-	private final Set<ContainerElementPathKey> configuredPaths = new HashSet<>();
+	private final Set<ContainerElementPathKey> configuredPaths = new LinkedHashSet<>();
 
 	CascadableConstraintMappingContextImplBase(DefaultConstraintMapping mapping, Type configuredType) {
 		super( mapping );

@@ -17,7 +17,7 @@ import static org.testng.Assert.fail;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.enterprise.inject.Default;
@@ -171,10 +171,10 @@ public class ValidationExtensionTest {
 	@Test
 	public void testNoRegistrationRequired() {
 		// setup the mocks
-		Set<Type> validatorFactoryBeanTypes = new HashSet<Type>();
+		Set<Type> validatorFactoryBeanTypes = new LinkedHashSet<Type>();
 		validatorFactoryBeanTypes.add( ValidatorFactory.class );
 
-		Set<Type> validatorBeanTypes = new HashSet<Type>();
+		Set<Type> validatorBeanTypes = new LinkedHashSet<Type>();
 		validatorBeanTypes.add( Validator.class );
 
 		Set<Annotation> qualifiers = Collections.<Annotation>singleton(

@@ -8,7 +8,7 @@ package org.hibernate.validator.test.internal.util;
 
 import static org.testng.Assert.assertTrue;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.hibernate.validator.internal.util.IdentitySet;
@@ -23,7 +23,7 @@ public class IdentitySetTest {
 	@Test
 	public void testAddIdenticalInstance() {
 		Set identitySet = new IdentitySet();
-		Set hashSet = new HashSet();
+		Set hashSet = new LinkedHashSet();
 		assertTrue( identitySet.size() == 0 );
 		assertTrue( hashSet.size() == 0 );
 

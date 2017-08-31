@@ -16,7 +16,7 @@ import static org.testng.Assert.fail;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.validation.Constraint;
@@ -329,7 +329,7 @@ public class FailFastTest {
 		String file;
 
 		@Valid
-		Set<B> bs = new HashSet<B>();
+		Set<B> bs = new LinkedHashSet<B>();
 	}
 
 	class B {

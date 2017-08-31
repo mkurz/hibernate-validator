@@ -6,7 +6,7 @@
  */
 package org.hibernate.validator.internal.engine;
 
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 import static org.hibernate.validator.internal.util.logging.Messages.MESSAGES;
 
 import java.io.BufferedInputStream;
@@ -86,11 +86,11 @@ public class ConfigurationImpl implements HibernateValidatorConfiguration, Confi
 	private ValidationProviderResolver providerResolver;
 	private final ValidationBootstrapParameters validationBootstrapParameters;
 	private boolean ignoreXmlConfiguration = false;
-	private final Set<InputStream> configurationStreams = newHashSet();
+	private final Set<InputStream> configurationStreams = newLinkedHashSet();
 	private BootstrapConfiguration bootstrapConfiguration;
 
 	// HV-specific options
-	private final Set<DefaultConstraintMapping> programmaticMappings = newHashSet();
+	private final Set<DefaultConstraintMapping> programmaticMappings = newLinkedHashSet();
 	private boolean failFast;
 	private ClassLoader externalClassLoader;
 	private final MethodValidationConfiguration.Builder methodValidationConfigurationBuilder = new MethodValidationConfiguration.Builder();

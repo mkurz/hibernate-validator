@@ -9,7 +9,7 @@ package org.hibernate.validator.internal.xml;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -70,10 +70,10 @@ public class BootstrapConfigurationImpl implements BootstrapConfiguration {
 		this.traversableResolverClassName = null;
 		this.parameterNameProviderClassName = null;
 		this.clockProviderClassName = null;
-		this.valueExtractorClassNames = new HashSet<>();
+		this.valueExtractorClassNames = new LinkedHashSet<>();
 		this.validatedExecutableTypes = DEFAULT_VALIDATED_EXECUTABLE_TYPES;
 		this.isExecutableValidationEnabled = true;
-		this.constraintMappingResourcePaths = new HashSet<>();
+		this.constraintMappingResourcePaths = new LinkedHashSet<>();
 		this.properties = new HashMap<>();
 	}
 
@@ -152,12 +152,12 @@ public class BootstrapConfigurationImpl implements BootstrapConfiguration {
 
 	@Override
 	public Set<String> getValueExtractorClassNames() {
-		return new HashSet<>( valueExtractorClassNames );
+		return new LinkedHashSet<>( valueExtractorClassNames );
 	}
 
 	@Override
 	public Set<String> getConstraintMappingResourcePaths() {
-		return new HashSet<>( constraintMappingResourcePaths );
+		return new LinkedHashSet<>( constraintMappingResourcePaths );
 	}
 
 	@Override
@@ -167,7 +167,7 @@ public class BootstrapConfigurationImpl implements BootstrapConfiguration {
 
 	@Override
 	public Set<ExecutableType> getDefaultValidatedExecutableTypes() {
-		return new HashSet<>( validatedExecutableTypes );
+		return new LinkedHashSet<>( validatedExecutableTypes );
 	}
 
 	@Override

@@ -8,7 +8,7 @@ package org.hibernate.validator.performance.cascaded;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -74,7 +74,7 @@ public class CascadedValidation {
 		String name;
 
 		@Valid
-		Set<Person> friends = new HashSet<>();
+		Set<Person> friends = new LinkedHashSet<>();
 
 		public Person(String name) {
 			this.name = name;

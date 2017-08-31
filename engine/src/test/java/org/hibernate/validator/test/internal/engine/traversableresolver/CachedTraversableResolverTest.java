@@ -7,7 +7,7 @@
 package org.hibernate.validator.test.internal.engine.traversableresolver;
 
 import java.lang.annotation.ElementType;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import javax.validation.Configuration;
 import javax.validation.Path;
@@ -64,8 +64,8 @@ public class CachedTraversableResolverTest {
 	}
 
 	private static class AskOnceTR implements TraversableResolver {
-		private Set<Holder> askedReach = new HashSet<Holder>();
-		private Set<Holder> askedCascade = new HashSet<Holder>();
+		private Set<Holder> askedReach = new LinkedHashSet<Holder>();
+		private Set<Holder> askedCascade = new LinkedHashSet<Holder>();
 
 		private boolean isTraversable(Set<Holder> asked, Object traversableObject, Path.Node traversableProperty) {
 			Holder h = new Holder( traversableObject, traversableProperty );

@@ -6,14 +6,14 @@
  */
 package org.hibernate.validator.cdi.internal;
 
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -62,10 +62,10 @@ public class ValidatorFactoryBean implements Bean<ValidatorFactory>, Passivation
 
 	public ValidatorFactoryBean(BeanManager beanManager, ValidationProviderHelper validationProviderHelper) {
 		this.beanManager = beanManager;
-		this.destructibleResources = newHashSet( 5 );
+		this.destructibleResources = newLinkedHashSet( 5 );
 		this.validationProviderHelper = validationProviderHelper;
 		this.types = Collections.unmodifiableSet(
-				CollectionHelper.<Type>newHashSet(
+				CollectionHelper.<Type>newLinkedHashSet(
 						ClassHierarchyHelper.getHierarchy( validationProviderHelper.getValidatorFactoryBeanClass() )
 				)
 		);
@@ -265,7 +265,7 @@ public class ValidatorFactoryBean implements Bean<ValidatorFactory>, Passivation
 
 	@SuppressWarnings("rawtypes")
 	private Set<ValueExtractorDescriptor> createServiceLoaderValueExtractors() {
-		Set<ValueExtractorDescriptor> valueExtractorDescriptors = new HashSet<>();
+		Set<ValueExtractorDescriptor> valueExtractorDescriptors = new LinkedHashSet<>();
 
 		List<ValueExtractor> valueExtractors = run( GetInstancesFromServiceLoader.action(
 				run( GetClassLoader.fromContext() ),

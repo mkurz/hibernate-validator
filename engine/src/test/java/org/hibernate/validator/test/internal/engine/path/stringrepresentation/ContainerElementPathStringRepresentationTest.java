@@ -15,7 +15,7 @@ import static org.hibernate.validator.testutil.ConstraintViolationAssert.violati
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -252,7 +252,7 @@ public class ContainerElementPathStringRepresentationTest extends AbstractPathSt
 		private final Set<@Valid @NotNull Address> addresses;
 
 		private AddressBook() {
-			this.addresses = new HashSet<>();
+			this.addresses = new LinkedHashSet<>();
 		}
 
 		public AddressBook add(Address address) {

@@ -7,7 +7,7 @@
 package org.hibernate.validator.internal.xml;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newHashMap;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,7 +64,7 @@ public class MappingXmlParser {
 
 	private static final Log log = LoggerFactory.make();
 
-	private final Set<Class<?>> processedClasses = newHashSet();
+	private final Set<Class<?>> processedClasses = newLinkedHashSet();
 	private final ConstraintHelper constraintHelper;
 	private final TypeResolutionHelper typeResolutionHelper;
 	private final ValueExtractorManager valueExtractorManager;
@@ -143,7 +143,7 @@ public class MappingXmlParser {
 					annotationProcessingOptions
 			);
 
-			Set<String> alreadyProcessedConstraintDefinitions = newHashSet();
+			Set<String> alreadyProcessedConstraintDefinitions = newLinkedHashSet();
 			for ( InputStream in : mappingStreams ) {
 				ConstraintMappingsType mapping = unmarshal( jc, in );
 				String defaultPackage = mapping.getDefaultPackage();
@@ -338,7 +338,7 @@ public class MappingXmlParser {
 			constrainedElements.get( beanClass ).add( constrainedElement );
 		}
 		else {
-			Set<ConstrainedElement> tmpList = newHashSet();
+			Set<ConstrainedElement> tmpList = newLinkedHashSet();
 			tmpList.add( constrainedElement );
 			constrainedElements.put( beanClass, tmpList );
 		}
@@ -360,7 +360,7 @@ public class MappingXmlParser {
 			existingConstrainedElements.addAll( newConstrainedElements );
 		}
 		else {
-			Set<ConstrainedElement> tmpSet = newHashSet();
+			Set<ConstrainedElement> tmpSet = newLinkedHashSet();
 			tmpSet.addAll( newConstrainedElements );
 			constrainedElements.put( beanClass, tmpSet );
 		}

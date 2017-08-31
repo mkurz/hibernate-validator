@@ -7,10 +7,10 @@
 package org.hibernate.validator.internal.engine;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newHashMap;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.lang.reflect.Executable;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -177,7 +177,7 @@ public class ValidationContext<T> {
 		this.processedBeansPerGroup = newHashMap();
 		this.processedPathsPerBean = new IdentityHashMap<>();
 		this.processedMetaConstraints = newHashMap();
-		this.failingConstraintViolations = newHashSet();
+		this.failingConstraintViolations = newLinkedHashSet();
 	}
 
 	public static ValidationContextBuilder getValidationContextBuilder(
@@ -455,7 +455,7 @@ public class ValidationContext<T> {
 			processedPathsPerBean.get( value ).add( path );
 		}
 		else {
-			Set<PathImpl> set = new HashSet<>();
+			Set<PathImpl> set = new LinkedHashSet<>();
 			set.add( path );
 			processedPathsPerBean.put( value, set );
 		}

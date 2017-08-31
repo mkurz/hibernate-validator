@@ -6,7 +6,7 @@
  */
 package org.hibernate.validator.internal.metadata.aggregated;
 
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.util.Collections;
 import java.util.Map;
@@ -67,7 +67,7 @@ public class GroupConversionHelper {
 	 *         {@code null}.
 	 */
 	public Set<GroupConversionDescriptor> asDescriptors() {
-		Set<GroupConversionDescriptor> descriptors = newHashSet( groupConversions.size() );
+		Set<GroupConversionDescriptor> descriptors = newLinkedHashSet( groupConversions.size() );
 
 		for ( Entry<Class<?>, Class<?>> conversion : groupConversions.entrySet() ) {
 			descriptors.add(

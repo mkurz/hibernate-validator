@@ -58,7 +58,7 @@ public class ClassVisitor extends AbstractElementVisitor<Void, Void> {
 				)
 		);
 
-		this.processedTypes = CollectionHelper.newHashSet();
+		this.processedTypes = CollectionHelper.newLinkedHashSet();
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class ClassVisitor extends AbstractElementVisitor<Void, Void> {
 
 	private void processClassChecks(Element element) {
 		try {
-			Set<ConstraintCheckIssue> allIssues = CollectionHelper.newHashSet();
+			Set<ConstraintCheckIssue> allIssues = CollectionHelper.newLinkedHashSet();
 			Collection<ClassCheck> classChecks = factory.getClassChecks( element );
 			for ( ClassCheck classCheck : classChecks ) {
 				allIssues.addAll( classCheck.execute( element ) );

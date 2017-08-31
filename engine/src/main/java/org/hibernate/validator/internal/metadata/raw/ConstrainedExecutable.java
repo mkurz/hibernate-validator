@@ -7,12 +7,12 @@
 package org.hibernate.validator.internal.metadata.raw;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newArrayList;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -270,13 +270,13 @@ public class ConstrainedExecutable extends AbstractConstrainedElement {
 			i++;
 		}
 
-		Set<MetaConstraint<?>> mergedCrossParameterConstraints = newHashSet( crossParameterConstraints );
+		Set<MetaConstraint<?>> mergedCrossParameterConstraints = newLinkedHashSet( crossParameterConstraints );
 		mergedCrossParameterConstraints.addAll( other.crossParameterConstraints );
 
-		Set<MetaConstraint<?>> mergedReturnValueConstraints = newHashSet( constraints );
+		Set<MetaConstraint<?>> mergedReturnValueConstraints = newLinkedHashSet( constraints );
 		mergedReturnValueConstraints.addAll( other.constraints );
 
-		Set<MetaConstraint<?>> mergedTypeArgumentConstraints = new HashSet<>( typeArgumentConstraints );
+		Set<MetaConstraint<?>> mergedTypeArgumentConstraints = new LinkedHashSet<>( typeArgumentConstraints );
 		mergedTypeArgumentConstraints.addAll( other.typeArgumentConstraints );
 
 		CascadingMetaDataBuilder mergedCascadingMetaDataBuilder = cascadingMetaDataBuilder.merge( other.cascadingMetaDataBuilder );
@@ -293,7 +293,7 @@ public class ConstrainedExecutable extends AbstractConstrainedElement {
 	}
 
 	private Set<ConstraintDescriptor<?>> getDescriptors(Iterable<MetaConstraint<?>> constraints) {
-		Set<ConstraintDescriptor<?>> descriptors = newHashSet();
+		Set<ConstraintDescriptor<?>> descriptors = newLinkedHashSet();
 
 		for ( MetaConstraint<?> constraint : constraints ) {
 			descriptors.add( constraint.getDescriptor() );

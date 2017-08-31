@@ -6,7 +6,7 @@
  */
 package org.hibernate.validator.resourceloading;
 
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 import static org.hibernate.validator.internal.util.logging.Messages.MESSAGES;
 
 import java.io.IOException;
@@ -227,7 +227,7 @@ public class PlatformResourceBundleLocator implements ResourceBundleLocator {
 
 		@Override
 		public Enumeration<String> getKeys() {
-			Set<String> keySet = newHashSet();
+			Set<String> keySet = newLinkedHashSet();
 			keySet.addAll( properties.stringPropertyNames() );
 			if ( parent != null ) {
 				keySet.addAll( Collections.list( parent.getKeys() ) );

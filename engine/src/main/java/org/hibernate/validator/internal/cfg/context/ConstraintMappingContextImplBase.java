@@ -6,7 +6,7 @@
  */
 package org.hibernate.validator.internal.cfg.context;
 
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.lang.annotation.Annotation;
 import java.util.Collections;
@@ -31,7 +31,7 @@ abstract class ConstraintMappingContextImplBase extends ConstraintContextImplBas
 
 	ConstraintMappingContextImplBase(DefaultConstraintMapping mapping) {
 		super( mapping );
-		this.constraints = newHashSet();
+		this.constraints = newLinkedHashSet();
 	}
 
 	/**
@@ -60,7 +60,7 @@ abstract class ConstraintMappingContextImplBase extends ConstraintContextImplBas
 			return Collections.emptySet();
 		}
 
-		Set<MetaConstraint<?>> metaConstraints = newHashSet();
+		Set<MetaConstraint<?>> metaConstraints = newLinkedHashSet();
 
 		for ( ConfiguredConstraint<?> configuredConstraint : constraints ) {
 			metaConstraints.add( asMetaConstraint( configuredConstraint, constraintHelper, typeResolutionHelper, valueExtractorManager ) );

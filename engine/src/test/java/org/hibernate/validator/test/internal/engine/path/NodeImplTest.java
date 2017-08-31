@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -605,7 +605,7 @@ public class NodeImplTest {
 
 	private static class Building {
 
-		private Set<@Valid Apartment> apartments = new HashSet<>();
+		private Set<@Valid Apartment> apartments = new LinkedHashSet<>();
 
 		private List<@Valid Floor> floors = new ArrayList<>();
 
@@ -614,7 +614,7 @@ public class NodeImplTest {
 
 	private class BuildingWithContainerElementConstraints {
 
-		private Set<@Size(min = 3) String> apartments = new HashSet<>();
+		private Set<@Size(min = 3) String> apartments = new LinkedHashSet<>();
 
 		private List<@Max(10) Integer> floors = new ArrayList<>();
 

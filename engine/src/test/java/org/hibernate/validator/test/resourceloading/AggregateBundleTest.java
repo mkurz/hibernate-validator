@@ -9,7 +9,7 @@ package org.hibernate.validator.test.resourceloading;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -41,7 +41,7 @@ public class AggregateBundleTest {
 		ResourceBundle aggregateBundle = new AggregateBundle( Arrays.asList( bundle_1, bundle_2 ) );
 
 		Set<String> actualKeys = getAsSet( aggregateBundle.getKeys() );
-		Set<String> expectedKeys = new HashSet<String>( Arrays.asList( "key_1", "key_2", "key_3" ) );
+		Set<String> expectedKeys = new LinkedHashSet<String>( Arrays.asList( "key_1", "key_2", "key_3" ) );
 
 		assertEquals( actualKeys, expectedKeys );
 	}
@@ -77,7 +77,7 @@ public class AggregateBundleTest {
 	}
 
 	private Set<String> getAsSet(Enumeration<String> e) {
-		Set<String> theValue = new HashSet<String>();
+		Set<String> theValue = new LinkedHashSet<String>();
 
 		while ( e.hasMoreElements() ) {
 			theValue.add( e.nextElement() );

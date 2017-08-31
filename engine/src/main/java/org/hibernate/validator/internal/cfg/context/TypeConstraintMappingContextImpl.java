@@ -6,7 +6,7 @@
  */
 package org.hibernate.validator.internal.cfg.context;
 
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 import static org.hibernate.validator.internal.util.logging.Messages.MESSAGES;
 
 import java.lang.annotation.ElementType;
@@ -60,9 +60,9 @@ public final class TypeConstraintMappingContextImpl<C> extends ConstraintMapping
 
 	private final Class<C> beanClass;
 
-	private final Set<ExecutableConstraintMappingContextImpl> executableContexts = newHashSet();
-	private final Set<PropertyConstraintMappingContextImpl> propertyContexts = newHashSet();
-	private final Set<Member> configuredMembers = newHashSet();
+	private final Set<ExecutableConstraintMappingContextImpl> executableContexts = newLinkedHashSet();
+	private final Set<PropertyConstraintMappingContextImpl> propertyContexts = newLinkedHashSet();
+	private final Set<Member> configuredMembers = newLinkedHashSet();
 
 	private List<Class<?>> defaultGroupSequence;
 	private Class<? extends DefaultGroupSequenceProvider<? super C>> defaultGroupSequenceProviderClass;
@@ -196,7 +196,7 @@ public final class TypeConstraintMappingContextImpl<C> extends ConstraintMapping
 
 	private Set<ConstrainedElement> buildConstraintElements(ConstraintHelper constraintHelper, TypeResolutionHelper typeResolutionHelper,
 			ValueExtractorManager valueExtractorManager) {
-		Set<ConstrainedElement> elements = newHashSet();
+		Set<ConstrainedElement> elements = newLinkedHashSet();
 
 		//class-level configuration
 		elements.add(

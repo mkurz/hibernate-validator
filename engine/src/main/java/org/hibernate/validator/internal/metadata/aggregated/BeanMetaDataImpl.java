@@ -7,7 +7,7 @@
 package org.hibernate.validator.internal.metadata.aggregated;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newHashMap;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.lang.annotation.ElementType;
 import java.lang.reflect.Executable;
@@ -179,10 +179,10 @@ public final class BeanMetaDataImpl<T> implements BeanMetaData<T> {
 		this.beanClass = beanClass;
 		this.propertyMetaDataMap = newHashMap();
 
-		Set<PropertyMetaData> propertyMetaDataSet = newHashSet();
+		Set<PropertyMetaData> propertyMetaDataSet = newLinkedHashSet();
 
-		Set<ExecutableMetaData> executableMetaDataSet = newHashSet();
-		Set<String> tmpUnconstrainedExecutables = newHashSet();
+		Set<ExecutableMetaData> executableMetaDataSet = newLinkedHashSet();
+		Set<String> tmpUnconstrainedExecutables = newLinkedHashSet();
 
 		boolean hasConstraints = false;
 
@@ -204,8 +204,8 @@ public final class BeanMetaDataImpl<T> implements BeanMetaData<T> {
 			}
 		}
 
-		Set<Cascadable> cascadedProperties = newHashSet();
-		Set<MetaConstraint<?>> allMetaConstraints = newHashSet();
+		Set<Cascadable> cascadedProperties = newLinkedHashSet();
+		Set<MetaConstraint<?>> allMetaConstraints = newLinkedHashSet();
 
 		for ( PropertyMetaData propertyMetaData : propertyMetaDataSet ) {
 			propertyMetaDataMap.put( propertyMetaData.getName(), propertyMetaData );
@@ -453,9 +453,9 @@ public final class BeanMetaDataImpl<T> implements BeanMetaData<T> {
 	}
 
 	private Set<MetaConstraint<?>> getDirectConstraints() {
-		Set<MetaConstraint<?>> constraints = newHashSet();
+		Set<MetaConstraint<?>> constraints = newLinkedHashSet();
 
-		Set<Class<?>> classAndInterfaces = newHashSet();
+		Set<Class<?>> classAndInterfaces = newLinkedHashSet();
 		classAndInterfaces.add( beanClass );
 		classAndInterfaces.addAll( ClassHierarchyHelper.getDirectlyImplementedInterfaces( beanClass ) );
 
@@ -536,7 +536,7 @@ public final class BeanMetaDataImpl<T> implements BeanMetaData<T> {
 		private final ConstraintHelper constraintHelper;
 		private final ValidationOrderGenerator validationOrderGenerator;
 		private final Class<T> beanClass;
-		private final Set<BuilderDelegate> builders = newHashSet();
+		private final Set<BuilderDelegate> builders = newLinkedHashSet();
 		private final ExecutableHelper executableHelper;
 		private final TypeResolutionHelper typeResolutionHelper;
 		private final ValueExtractorManager valueExtractorManager;
@@ -636,7 +636,7 @@ public final class BeanMetaDataImpl<T> implements BeanMetaData<T> {
 		}
 
 		public BeanMetaDataImpl<T> build() {
-			Set<ConstraintMetaData> aggregatedElements = newHashSet();
+			Set<ConstraintMetaData> aggregatedElements = newLinkedHashSet();
 
 			for ( BuilderDelegate builder : builders ) {
 				aggregatedElements.addAll( builder.build() );
@@ -772,7 +772,7 @@ public final class BeanMetaDataImpl<T> implements BeanMetaData<T> {
 		}
 
 		public Set<ConstraintMetaData> build() {
-			Set<ConstraintMetaData> metaDataSet = newHashSet();
+			Set<ConstraintMetaData> metaDataSet = newLinkedHashSet();
 
 			if ( propertyBuilder != null ) {
 				metaDataSet.add( propertyBuilder.build() );

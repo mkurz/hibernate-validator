@@ -312,7 +312,7 @@ public class AnnotationApiHelper {
 			return null;
 		}
 
-		Set<TypeMirror> theValue = CollectionHelper.newHashSet();
+		Set<TypeMirror> theValue = CollectionHelper.newLinkedHashSet();
 
 		for ( TypeMirror typeMirror1 : types ) {
 			boolean foundSubType = false;

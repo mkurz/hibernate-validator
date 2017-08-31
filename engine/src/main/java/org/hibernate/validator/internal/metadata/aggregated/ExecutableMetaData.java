@@ -8,7 +8,7 @@ package org.hibernate.validator.internal.metadata.aggregated;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newArrayList;
 import static org.hibernate.validator.internal.util.CollectionHelper.newHashMap;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
@@ -247,16 +247,16 @@ public class ExecutableMetaData extends AbstractConstraintMetaData {
 	 * @author Kevin Pollet &lt;kevin.pollet@serli.com&gt; (C) 2011 SERLI
 	 */
 	public static class Builder extends MetaDataBuilder {
-		private final Set<String> signatures = newHashSet();
+		private final Set<String> signatures = newLinkedHashSet();
 
 		/**
 		 * Either CONSTRUCTOR or METHOD.
 		 */
 		private final ConstrainedElement.ConstrainedElementKind kind;
-		private final Set<ConstrainedExecutable> constrainedExecutables = newHashSet();
+		private final Set<ConstrainedExecutable> constrainedExecutables = newLinkedHashSet();
 		private Executable executable;
 		private final boolean isGetterMethod;
-		private final Set<MetaConstraint<?>> crossParameterConstraints = newHashSet();
+		private final Set<MetaConstraint<?>> crossParameterConstraints = newLinkedHashSet();
 		private final Set<MethodConfigurationRule> rules;
 		private boolean isConstrained = false;
 		private CascadingMetaDataBuilder cascadingMetaDataBuilder;

@@ -6,7 +6,7 @@
  */
 package org.hibernate.validator.internal.cfg.context;
 
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 import static org.hibernate.validator.internal.util.logging.Messages.MESSAGES;
 
 import java.lang.annotation.Annotation;
@@ -47,10 +47,10 @@ public class DefaultConstraintMapping implements ConstraintMapping {
 
 	public DefaultConstraintMapping() {
 		this.annotationProcessingOptions = new AnnotationProcessingOptionsImpl();
-		this.configuredTypes = newHashSet();
-		this.typeContexts = newHashSet();
-		this.definedConstraints = newHashSet();
-		this.constraintContexts = newHashSet();
+		this.configuredTypes = newLinkedHashSet();
+		this.typeContexts = newLinkedHashSet();
+		this.definedConstraints = newLinkedHashSet();
+		this.constraintContexts = newLinkedHashSet();
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class DefaultConstraintMapping implements ConstraintMapping {
 	 */
 	public Set<BeanConfiguration<?>> getBeanConfigurations(ConstraintHelper constraintHelper, TypeResolutionHelper typeResolutionHelper,
 			ValueExtractorManager valueExtractorManager) {
-		Set<BeanConfiguration<?>> configurations = newHashSet();
+		Set<BeanConfiguration<?>> configurations = newLinkedHashSet();
 
 		for ( TypeConstraintMappingContextImpl<?> typeContext : typeContexts ) {
 			configurations.add( typeContext.build( constraintHelper, typeResolutionHelper, valueExtractorManager ) );
@@ -115,7 +115,7 @@ public class DefaultConstraintMapping implements ConstraintMapping {
 	}
 
 	public Set<ConstraintDefinitionContribution<?>> getConstraintDefinitionContributions() {
-		Set<ConstraintDefinitionContribution<?>> contributions = newHashSet();
+		Set<ConstraintDefinitionContribution<?>> contributions = newLinkedHashSet();
 
 		for ( ConstraintDefinitionContextImpl<?> constraintContext : constraintContexts ) {
 			contributions.add( constraintContext.build() );

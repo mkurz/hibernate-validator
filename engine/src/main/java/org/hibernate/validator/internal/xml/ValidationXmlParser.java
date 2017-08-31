@@ -14,7 +14,7 @@ import java.security.PrivilegedExceptionAction;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -206,13 +206,13 @@ public class ValidationXmlParser {
 				getValueExtractorClassNames( config ),
 				defaultValidatedExecutableTypes,
 				executableValidationEnabled,
-				new HashSet<>( config.getConstraintMapping() ),
+				new LinkedHashSet<>( config.getConstraintMapping() ),
 				properties
 		);
 	}
 
 	private Set<String> getValueExtractorClassNames(ValidationConfigType config) {
-		Set<String> valueExtractorClassNames = CollectionHelper.newHashSet( config.getValueExtractor().size() );
+		Set<String> valueExtractorClassNames = CollectionHelper.newLinkedHashSet( config.getValueExtractor().size() );
 		for ( String className : config.getValueExtractor() ) {
 			if ( !valueExtractorClassNames.add( className ) ) {
 				throw log.getDuplicateDefinitionsOfValueExtractorException( className );

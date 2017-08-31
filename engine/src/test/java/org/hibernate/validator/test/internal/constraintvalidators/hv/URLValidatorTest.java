@@ -7,7 +7,7 @@
 package org.hibernate.validator.test.internal.constraintvalidators.hv;
 
 import static java.lang.annotation.ElementType.METHOD;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 import static org.hibernate.validator.testutil.ConstraintViolationAssert.assertNoViolations;
 import static org.hibernate.validator.testutil.ConstraintViolationAssert.assertThat;
 import static org.hibernate.validator.testutil.ConstraintViolationAssert.violationOf;
@@ -480,7 +480,7 @@ public class URLValidatorTest {
 	}
 
 	private static class DelegatingConstraintValidatorFactory implements ConstraintValidatorFactory {
-		private final Set<Class<?>> requestedConstraintValidators = newHashSet();
+		private final Set<Class<?>> requestedConstraintValidators = newLinkedHashSet();
 		private final ConstraintValidatorFactory delegate;
 
 		private DelegatingConstraintValidatorFactory(ConstraintValidatorFactory delegate) {

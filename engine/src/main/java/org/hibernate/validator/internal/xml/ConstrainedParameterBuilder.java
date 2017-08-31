@@ -12,7 +12,7 @@ import java.lang.annotation.ElementType;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -57,7 +57,7 @@ class ConstrainedParameterBuilder {
 			ConstraintLocation constraintLocation = ConstraintLocation.forParameter( executable, i );
 			Type type = ReflectionHelper.typeOf( executable, i );
 
-			Set<MetaConstraint<?>> metaConstraints = new HashSet<>();
+			Set<MetaConstraint<?>> metaConstraints = new LinkedHashSet<>();
 			for ( ConstraintType constraint : parameterType.getConstraint() ) {
 				MetaConstraint<?> metaConstraint = metaConstraintBuilder.buildMetaConstraint(
 						constraintLocation,

@@ -8,7 +8,7 @@ package org.hibernate.validator.integration.wildfly;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -57,7 +57,7 @@ public class ConstraintDefinitionContributorIT extends AbstractArquillianIT {
 		Set<ConstraintViolation<TestEntity>> constraintViolations = validator.validate( testEntity );
 		assertThat( constraintViolations ).as( "There should be two constraint violations" ).hasSize( 2 );
 
-		Set<String> messages = new HashSet<String>();
+		Set<String> messages = new LinkedHashSet<String>();
 		for ( ConstraintViolation<TestEntity> constraintViolation : constraintViolations ) {
 			messages.add( constraintViolation.getMessage() );
 		}

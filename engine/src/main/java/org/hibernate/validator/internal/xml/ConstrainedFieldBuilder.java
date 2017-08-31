@@ -12,7 +12,7 @@ import java.lang.reflect.TypeVariable;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -54,12 +54,12 @@ class ConstrainedFieldBuilder {
 	Set<ConstrainedField> buildConstrainedFields(List<FieldType> fields,
 															   Class<?> beanClass,
 															   String defaultPackage) {
-		Set<ConstrainedField> constrainedFields = new HashSet<>();
+		Set<ConstrainedField> constrainedFields = new LinkedHashSet<>();
 		List<String> alreadyProcessedFieldNames = new ArrayList<>();
 		for ( FieldType fieldType : fields ) {
 			Field field = findField( beanClass, fieldType.getName(), alreadyProcessedFieldNames );
 			ConstraintLocation constraintLocation = ConstraintLocation.forField( field );
-			Set<MetaConstraint<?>> metaConstraints = new HashSet<>();
+			Set<MetaConstraint<?>> metaConstraints = new LinkedHashSet<>();
 
 			for ( ConstraintType constraint : fieldType.getConstraint() ) {
 				MetaConstraint<?> metaConstraint = metaConstraintBuilder.buildMetaConstraint(

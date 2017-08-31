@@ -7,14 +7,14 @@
 package org.hibernate.validator.internal.metadata.descriptor;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newArrayList;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.io.Serializable;
 import java.lang.annotation.ElementType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -88,7 +88,7 @@ public abstract class ElementDescriptorImpl implements ElementDescriptor, Serial
 		private final Set<ElementType> elementTypes;
 
 		ConstraintFinderImpl() {
-			elementTypes = new HashSet<ElementType>();
+			elementTypes = new LinkedHashSet<ElementType>();
 			elementTypes.add( ElementType.TYPE );
 			elementTypes.add( ElementType.METHOD );
 			elementTypes.add( ElementType.CONSTRUCTOR );
@@ -98,7 +98,7 @@ public abstract class ElementDescriptorImpl implements ElementDescriptor, Serial
 			//for a bean descriptor there will be no parameter constraints, so we can safely add this element type here
 			elementTypes.add( ElementType.PARAMETER );
 
-			definedInSet = newHashSet();
+			definedInSet = newLinkedHashSet();
 			definedInSet.add( ConstraintOrigin.DEFINED_LOCALLY );
 			definedInSet.add( ConstraintOrigin.DEFINED_IN_HIERARCHY );
 			groups = Collections.emptyList();
@@ -135,7 +135,7 @@ public abstract class ElementDescriptorImpl implements ElementDescriptor, Serial
 
 		@Override
 		public Set<ConstraintDescriptor<?>> getConstraintDescriptors() {
-			Set<ConstraintDescriptor<?>> matchingDescriptors = new HashSet<ConstraintDescriptor<?>>();
+			Set<ConstraintDescriptor<?>> matchingDescriptors = new LinkedHashSet<ConstraintDescriptor<?>>();
 			findMatchingDescriptors( matchingDescriptors );
 			return CollectionHelper.toImmutableSet( matchingDescriptors );
 		}

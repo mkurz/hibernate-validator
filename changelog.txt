@@ -1384,7 +1384,7 @@ Hibernate Validator Changelog
     * [HV-321] - javax.persistence.PersistenceException when trying to validate an object graphs with a class-level constraint annotation. In addition to the error report HV-266
     * [HV-323] - URL Validator needs to pass on empty Strings
     * [HV-324] - Default annotation not executing when group selector activated
-    * [HV-326] - Verify that for caching user objects during the validation process we use a IdentityHashMap or IdentityHashSet
+    * [HV-326] - Verify that for caching user objects during the validation process we use a IdentityHashMap or IdentityLinkedHashSet
     * [HV-328] - Configuration.addMapping( null ) should throw IllegalArgumentException
     * [HV-329] - Update quickstart section and remove reference to archetype catalog
 

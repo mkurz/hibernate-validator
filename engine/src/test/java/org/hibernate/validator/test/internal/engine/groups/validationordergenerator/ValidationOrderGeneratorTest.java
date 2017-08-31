@@ -6,7 +6,7 @@
  */
 package org.hibernate.validator.test.internal.engine.groups.validationordergenerator;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -42,7 +42,7 @@ public class ValidationOrderGeneratorTest {
 
 	@Test(expectedExceptions = ValidationException.class)
 	public void testValidationOrderForNonInterface() {
-		Set<Class<?>> groups = new HashSet<Class<?>>();
+		Set<Class<?>> groups = new LinkedHashSet<Class<?>>();
 		groups.add( String.class );
 		generator.getValidationOrder( groups );
 	}
@@ -54,26 +54,26 @@ public class ValidationOrderGeneratorTest {
 
 	@Test(expectedExceptions = IllegalArgumentException.class)
 	public void testValidationOrderForEmptySet() {
-		generator.getValidationOrder( new HashSet<Class<?>>() );
+		generator.getValidationOrder( new LinkedHashSet<Class<?>>() );
 	}
 
 	@Test(expectedExceptions = ValidationException.class)
 	public void testCyclicGroupSequences() {
-		Set<Class<?>> groups = new HashSet<Class<?>>();
+		Set<Class<?>> groups = new LinkedHashSet<Class<?>>();
 		groups.add( CyclicGroupSequence1.class );
 		generator.getValidationOrder( groups );
 	}
 
 	@Test(expectedExceptions = ValidationException.class)
 	public void testCyclicGroupSequence() {
-		Set<Class<?>> groups = new HashSet<Class<?>>();
+		Set<Class<?>> groups = new LinkedHashSet<Class<?>>();
 		groups.add( CyclicGroupSequence.class );
 		generator.getValidationOrder( groups );
 	}
 
 	@Test
 	public void testGroupDuplicates() {
-		Set<Class<?>> groups = new HashSet<Class<?>>();
+		Set<Class<?>> groups = new LinkedHashSet<Class<?>>();
 		groups.add( First.class );
 		groups.add( Second.class );
 		groups.add( Last.class );
@@ -99,28 +99,28 @@ public class ValidationOrderGeneratorTest {
 
 	@Test(expectedExceptions = GroupDefinitionException.class)
 	public void testGroupDefiningSequencePartOfGroupComposingSequence() {
-		Set<Class<?>> groups = new HashSet<Class<?>>();
+		Set<Class<?>> groups = new LinkedHashSet<Class<?>>();
 		groups.add( Sequence1.class );
 		generator.getValidationOrder( groups );
 	}
 
 	@Test(expectedExceptions = GroupDefinitionException.class)
 	public void testUnexpandableSequence() {
-		Set<Class<?>> groups = new HashSet<Class<?>>();
+		Set<Class<?>> groups = new LinkedHashSet<Class<?>>();
 		groups.add( Sequence3.class );
 		generator.getValidationOrder( groups );
 	}
 
 	@Test
 	public void testExpandableSequenceWithInheritance() {
-		Set<Class<?>> groups = new HashSet<Class<?>>();
+		Set<Class<?>> groups = new LinkedHashSet<Class<?>>();
 		groups.add( Sequence4.class );
 		generator.getValidationOrder( groups );
 	}
 
 	@Test
 	public void testSequenceResolution() {
-		Set<Class<?>> groups = new HashSet<Class<?>>();
+		Set<Class<?>> groups = new LinkedHashSet<Class<?>>();
 		groups.add( Address.Complete.class );
 		ValidationOrder chain = generator.getValidationOrder( groups );
 		Iterator<Sequence> sequences = chain.getSequenceIterator();

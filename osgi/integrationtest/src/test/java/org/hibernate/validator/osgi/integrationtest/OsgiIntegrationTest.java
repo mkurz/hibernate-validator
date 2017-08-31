@@ -20,7 +20,7 @@ import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.logLevel;
 
 import java.io.File;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -128,7 +128,7 @@ public class OsgiIntegrationTest {
 			.map( ConstraintViolation::getMessage )
 			.collect( Collectors.toSet() );
 
-		Set<String> expectedMessages = new HashSet<>();
+		Set<String> expectedMessages = new LinkedHashSet<>();
 		expectedMessages.add( "must be greater than or equal to 1" );
 		expectedMessages.add( "must be greater than or equal to 1.00" );
 
@@ -156,7 +156,7 @@ public class OsgiIntegrationTest {
 				.map( ConstraintViolation::getMessage )
 				.collect( Collectors.toSet() );
 
-			Set<String> expectedMessages = new HashSet<>();
+			Set<String> expectedMessages = new LinkedHashSet<>();
 			expectedMessages.add( "must be greater than or equal to 1" );
 			expectedMessages.add( "must be greater than or equal to 1.00" );
 

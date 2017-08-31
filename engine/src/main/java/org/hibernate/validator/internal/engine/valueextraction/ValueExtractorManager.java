@@ -11,10 +11,10 @@ import java.lang.reflect.TypeVariable;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
+import java.util.LinkedLinkedHashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -45,7 +45,7 @@ public class ValueExtractorManager {
 	public static final Set<ValueExtractorDescriptor> SPEC_DEFINED_EXTRACTORS;
 
 	static {
-		LinkedHashSet<ValueExtractorDescriptor> specDefinedExtractors = new LinkedHashSet<>();
+		LinkedLinkedHashSet<ValueExtractorDescriptor> specDefinedExtractors = new LinkedLinkedHashSet<>();
 
 		if ( isJavaFxInClasspath() ) {
 			specDefinedExtractors.add( ObservableValueValueExtractor.DESCRIPTOR );
@@ -181,7 +181,7 @@ public class ValueExtractorManager {
 	}
 
 	public Set<ValueExtractorDescriptor> getValueExtractorCandidatesForCascadedValidation(Type declaredType, TypeVariable<?> typeParameter) {
-		Set<ValueExtractorDescriptor> valueExtractorDescriptors = new HashSet<>();
+		Set<ValueExtractorDescriptor> valueExtractorDescriptors = new LinkedHashSet<>();
 
 		valueExtractorDescriptors.addAll( getTypeCompliantAndContainerElementCompliantValueExtractors( declaredType, typeParameter ) );
 		valueExtractorDescriptors.addAll( getPotentiallyRuntimeTypeCompliantAndContainerElementCompliantValueExtractors( declaredType, typeParameter ) );
@@ -204,7 +204,7 @@ public class ValueExtractorManager {
 				.filter( e -> TypeHelper.isAssignable( e.getContainerType(), declaredType ) )
 				.collect( Collectors.toSet() );
 
-		Set<ValueExtractorDescriptor> containerElementCompliantExtractors = new HashSet<>();
+		Set<ValueExtractorDescriptor> containerElementCompliantExtractors = new LinkedHashSet<>();
 
 		for ( ValueExtractorDescriptor extractorDescriptor : typeCompatibleExtractors ) {
 			TypeVariable<?> typeParameterBoundToExtractorType;
@@ -240,7 +240,7 @@ public class ValueExtractorManager {
 				.filter( e -> TypeHelper.isAssignable( erasedDeclaredType, e.getContainerType() ) )
 				.collect( Collectors.toSet() );
 
-		Set<ValueExtractorDescriptor> containerElementCompliantExtractors = new HashSet<>();
+		Set<ValueExtractorDescriptor> containerElementCompliantExtractors = new LinkedHashSet<>();
 
 		for ( ValueExtractorDescriptor extractorDescriptor : typeCompatibleExtractors ) {
 			TypeVariable<?> typeParameterBoundToExtractorType;
@@ -265,7 +265,7 @@ public class ValueExtractorManager {
 	}
 
 	private Set<ValueExtractorDescriptor> getMaximallySpecificValueExtractors(Class<?> valueType, Set<ValueExtractorDescriptor> extractors) {
-		Set<ValueExtractorDescriptor> candidates = CollectionHelper.newHashSet( extractors.size() );
+		Set<ValueExtractorDescriptor> candidates = CollectionHelper.newLinkedHashSet( extractors.size() );
 
 		for ( ValueExtractorDescriptor descriptor : extractors ) {
 			// in the case of cascaded validation, some of the proposed value extractors

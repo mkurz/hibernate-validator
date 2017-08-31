@@ -1,6 +1,6 @@
 package org.hibernate.validator.referenceguide.chapter12.propertypath;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -8,7 +8,7 @@ import javax.validation.Valid;
 public class Building {
 
 	@Valid
-	private Set<Apartment> apartments = new HashSet<Apartment>();
+	private Set<Apartment> apartments = new LinkedHashSet<Apartment>();
 
 	public Set<Apartment> getApartments() {
 		return apartments;

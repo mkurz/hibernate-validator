@@ -12,7 +12,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -240,7 +240,7 @@ public class ValidationExtension implements Extension {
 	}
 
 	private <T> Set<AnnotatedCallable<? super T>> determineConstrainedCallables(AnnotatedType<T> type) {
-		Set<AnnotatedCallable<? super T>> callables = new HashSet<>();
+		Set<AnnotatedCallable<? super T>> callables = new LinkedHashSet<>();
 		BeanDescriptor beanDescriptor = validator.getConstraintsForClass( type.getJavaClass() );
 
 		determineConstrainedConstructors( type, beanDescriptor, callables );

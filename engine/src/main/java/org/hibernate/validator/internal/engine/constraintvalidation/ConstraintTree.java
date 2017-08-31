@@ -9,7 +9,7 @@ package org.hibernate.validator.internal.engine.constraintvalidation;
 import static org.hibernate.validator.constraints.CompositionType.ALL_FALSE;
 import static org.hibernate.validator.constraints.CompositionType.AND;
 import static org.hibernate.validator.constraints.CompositionType.OR;
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
@@ -78,7 +78,7 @@ public class ConstraintTree<A extends Annotation> {
 
 	public final <T> boolean validateConstraints(ValidationContext<T> executionContext,
 			ValueContext<?, ?> valueContext) {
-		Set<ConstraintViolation<T>> constraintViolations = newHashSet( 5 );
+		Set<ConstraintViolation<T>> constraintViolations = newLinkedHashSet( 5 );
 		validateConstraints( executionContext, valueContext, constraintViolations );
 		if ( !constraintViolations.isEmpty() ) {
 			executionContext.addConstraintFailures( constraintViolations );
@@ -264,7 +264,7 @@ public class ConstraintTree<A extends Annotation> {
 			Set<ConstraintViolation<T>> constraintViolations) {
 		CompositionResult compositionResult = new CompositionResult( true, false );
 		for ( ConstraintTree<?> tree : children ) {
-			Set<ConstraintViolation<T>> tmpViolations = newHashSet( 5 );
+			Set<ConstraintViolation<T>> tmpViolations = newLinkedHashSet( 5 );
 			tree.validateConstraints( executionContext, valueContext, tmpViolations );
 			constraintViolations.addAll( tmpViolations );
 

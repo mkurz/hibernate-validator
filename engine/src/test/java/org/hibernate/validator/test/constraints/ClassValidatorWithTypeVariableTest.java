@@ -11,7 +11,7 @@ import static org.hibernate.validator.testutil.ConstraintViolationAssert.pathWit
 import static org.hibernate.validator.testutil.ConstraintViolationAssert.violationOf;
 
 import java.util.Date;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -49,7 +49,7 @@ public class ClassValidatorWithTypeVariableTest {
 	@Test
 	public void offerItemNull() {
 		ItemAOffer offer = new ItemAOffer( null );
-		Set<ItemOffer<? extends Item>> offers = new HashSet<ItemOffer<? extends Item>>();
+		Set<ItemOffer<? extends Item>> offers = new LinkedHashSet<ItemOffer<? extends Item>>();
 		offers.add( offer );
 		Batch batch = new Batch( offers );
 
@@ -67,7 +67,7 @@ public class ClassValidatorWithTypeVariableTest {
 	public void offerItemDateNull() {
 		ItemA item = new ItemA( null );
 		ItemOffer<? extends Item> offer = new ItemAOffer( item );
-		Set<ItemOffer<? extends Item>> offers = new HashSet<ItemOffer<? extends Item>>();
+		Set<ItemOffer<? extends Item>> offers = new LinkedHashSet<ItemOffer<? extends Item>>();
 		offers.add( offer );
 		Batch batch = new Batch( offers );
 
@@ -86,7 +86,7 @@ public class ClassValidatorWithTypeVariableTest {
 	private class Batch {
 		@NotNull
 		@Valid
-		private Set<ItemOffer<? extends Item>> offers = new HashSet<ItemOffer<? extends Item>>();
+		private Set<ItemOffer<? extends Item>> offers = new LinkedHashSet<ItemOffer<? extends Item>>();
 
 		public Batch(Set<ItemOffer<? extends Item>> offers) {
 			this.offers = offers;

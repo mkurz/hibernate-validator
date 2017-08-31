@@ -6,14 +6,14 @@
  */
 package org.hibernate.validator.internal.metadata.aggregated;
 
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -148,7 +148,7 @@ public abstract class AbstractConstraintMetaData implements ConstraintMetaData {
 	}
 
 	protected Set<ConstraintDescriptorImpl<?>> asDescriptors(Set<MetaConstraint<?>> constraints) {
-		Set<ConstraintDescriptorImpl<?>> theValue = newHashSet();
+		Set<ConstraintDescriptorImpl<?>> theValue = newLinkedHashSet();
 
 		for ( MetaConstraint<?> oneConstraint : constraints ) {
 			theValue.add( oneConstraint.getDescriptor() );
@@ -168,7 +168,7 @@ public abstract class AbstractConstraintMetaData implements ConstraintMetaData {
 
 	private Set<ContainerElementTypeDescriptor> asContainerElementTypeDescriptors(Type type, ContainerElementMetaDataTree containerElementMetaDataTree,
 			boolean defaultGroupSequenceRedefined, List<Class<?>> defaultGroupSequence) {
-		Set<ContainerElementTypeDescriptor> containerElementTypeDescriptors = new HashSet<>();
+		Set<ContainerElementTypeDescriptor> containerElementTypeDescriptors = new LinkedHashSet<>();
 
 		for ( Entry<TypeVariable<?>, ContainerElementMetaDataTree> entry : containerElementMetaDataTree.nodes.entrySet() ) {
 			TypeVariable<?> childTypeParameter = entry.getKey();
@@ -207,11 +207,11 @@ public abstract class AbstractConstraintMetaData implements ConstraintMetaData {
 
 		private Class<?> containerClass;
 
-		private final Set<MetaConstraint<?>> constraints = new HashSet<>();
+		private final Set<MetaConstraint<?>> constraints = new LinkedHashSet<>();
 
 		private boolean cascading = false;
 
-		private Set<GroupConversionDescriptor> groupConversionDescriptors = new HashSet<>();
+		private Set<GroupConversionDescriptor> groupConversionDescriptors = new LinkedHashSet<>();
 
 		private static ContainerElementMetaDataTree of(CascadingMetaData cascadingMetaData, Set<MetaConstraint<?>> containerElementsConstraints) {
 			ContainerElementMetaDataTree containerElementMetaConstraintTree = new ContainerElementMetaDataTree();

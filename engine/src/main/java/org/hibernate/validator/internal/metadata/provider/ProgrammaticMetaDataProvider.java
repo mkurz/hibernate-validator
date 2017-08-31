@@ -6,7 +6,7 @@
  */
 package org.hibernate.validator.internal.metadata.provider;
 
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,7 +54,7 @@ public class ProgrammaticMetaDataProvider implements MetaDataProvider {
 	}
 
 	private static void assertUniquenessOfConfiguredTypes(Set<DefaultConstraintMapping> mappings) {
-		Set<Class<?>> allConfiguredTypes = newHashSet();
+		Set<Class<?>> allConfiguredTypes = newLinkedHashSet();
 
 		for ( DefaultConstraintMapping constraintMapping : mappings ) {
 			for ( Class<?> configuredType : constraintMapping.getConfiguredTypes() ) {

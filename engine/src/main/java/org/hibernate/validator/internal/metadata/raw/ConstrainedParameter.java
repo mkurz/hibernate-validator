@@ -6,12 +6,12 @@
  */
 package org.hibernate.validator.internal.metadata.raw;
 
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.lang.reflect.Executable;
 import java.lang.reflect.Type;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.hibernate.validator.internal.metadata.aggregated.CascadingMetaDataBuilder;
@@ -99,10 +99,10 @@ public class ConstrainedParameter extends AbstractConstrainedElement {
 	public ConstrainedParameter merge(ConstrainedParameter other) {
 		ConfigurationSource mergedSource = ConfigurationSource.max( source, other.source );
 
-		Set<MetaConstraint<?>> mergedConstraints = newHashSet( constraints );
+		Set<MetaConstraint<?>> mergedConstraints = newLinkedHashSet( constraints );
 		mergedConstraints.addAll( other.constraints );
 
-		Set<MetaConstraint<?>> mergedTypeArgumentConstraints = new HashSet<>( typeArgumentConstraints );
+		Set<MetaConstraint<?>> mergedTypeArgumentConstraints = new LinkedHashSet<>( typeArgumentConstraints );
 		mergedTypeArgumentConstraints.addAll( other.typeArgumentConstraints );
 
 		CascadingMetaDataBuilder mergedCascadingMetaData = cascadingMetaDataBuilder.merge( other.cascadingMetaDataBuilder );

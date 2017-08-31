@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -240,7 +240,7 @@ public class CompilerTestHelper {
 	}
 
 	private Set<File> getDependenciesAsFiles(EnumSet<Library> dependencies) {
-		Set<File> files = new HashSet<File>();
+		Set<File> files = new LinkedHashSet<File>();
 
 		for ( Library oneDependency : dependencies ) {
 			files.add( new File( testLibraryDir + File.separator + oneDependency.getName() ) );

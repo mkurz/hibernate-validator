@@ -6,7 +6,7 @@
  */
 package org.hibernate.validator.internal.metadata.aggregated;
 
-import static org.hibernate.validator.internal.util.CollectionHelper.newHashSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.newLinkedHashSet;
 
 import java.lang.annotation.Annotation;
 import java.util.Set;
@@ -34,8 +34,8 @@ public abstract class MetaDataBuilder {
 	protected final ValueExtractorManager valueExtractorManager;
 
 	private final Class<?> beanClass;
-	private final Set<MetaConstraint<?>> directConstraints = newHashSet();
-	private final Set<MetaConstraint<?>> containerElementsConstraints = newHashSet();
+	private final Set<MetaConstraint<?>> directConstraints = newLinkedHashSet();
+	private final Set<MetaConstraint<?>> containerElementsConstraints = newLinkedHashSet();
 	private boolean isCascading = false;
 
 	protected MetaDataBuilder(Class<?> beanClass, ConstraintHelper constraintHelper, TypeResolutionHelper typeResolutionHelper, ValueExtractorManager valueExtractorManager) {
@@ -110,7 +110,7 @@ public abstract class MetaDataBuilder {
 	 * @return A constraint adapted to the given bean type.
 	 */
 	protected Set<MetaConstraint<?>> adaptOriginsAndImplicitGroups(Set<MetaConstraint<?>> constraints) {
-		Set<MetaConstraint<?>> adaptedConstraints = newHashSet();
+		Set<MetaConstraint<?>> adaptedConstraints = newLinkedHashSet();
 
 		for ( MetaConstraint<?> oneConstraint : constraints ) {
 			adaptedConstraints.add( adaptOriginAndImplicitGroup( oneConstraint ) );

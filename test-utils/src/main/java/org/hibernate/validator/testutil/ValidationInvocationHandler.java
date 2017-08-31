@@ -8,7 +8,7 @@ package org.hibernate.validator.testutil;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -43,7 +43,7 @@ public class ValidationInvocationHandler implements InvocationHandler {
 		);
 
 		if ( !constraintViolations.isEmpty() ) {
-			throw new ConstraintViolationException( new HashSet<ConstraintViolation<?>>( constraintViolations ) );
+			throw new ConstraintViolationException( new LinkedHashSet<ConstraintViolation<?>>( constraintViolations ) );
 		}
 
 		Object result = method.invoke( wrapped, args );
@@ -51,7 +51,7 @@ public class ValidationInvocationHandler implements InvocationHandler {
 		constraintViolations = validator.forExecutables().validateReturnValue( wrapped, method, result, groups );
 
 		if ( !constraintViolations.isEmpty() ) {
-			throw new ConstraintViolationException( new HashSet<ConstraintViolation<?>>( constraintViolations ) );
+			throw new ConstraintViolationException( new LinkedHashSet<ConstraintViolation<?>>( constraintViolations ) );
 		}
 
 		return result;

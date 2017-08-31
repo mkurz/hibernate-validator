@@ -10,7 +10,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,7 +44,7 @@ class ContainerElementTypeConfigurationBuilder {
 
 	private final String defaultPackage;
 
-	private final Set<ContainerElementTypePath> configuredPaths = new HashSet<>();
+	private final Set<ContainerElementTypePath> configuredPaths = new LinkedHashSet<>();
 
 	ContainerElementTypeConfigurationBuilder(MetaConstraintBuilder metaConstraintBuilder, GroupConversionBuilder groupConversionBuilder,
 			ConstraintLocation rootConstraintLocation, String defaultPackage) {
@@ -73,7 +73,7 @@ class ContainerElementTypeConfigurationBuilder {
 			throw LOG.getTypeIsNotAParameterizedNorArrayTypeException( enclosingType );
 		}
 
-		Set<MetaConstraint<?>> metaConstraints = new HashSet<>();
+		Set<MetaConstraint<?>> metaConstraints = new LinkedHashSet<>();
 		Map<TypeVariable<?>, CascadingMetaDataBuilder> containerElementTypesCascadingMetaDataBuilder =
 				CollectionHelper.newHashMap( xmlContainerElementTypes.size() );
 

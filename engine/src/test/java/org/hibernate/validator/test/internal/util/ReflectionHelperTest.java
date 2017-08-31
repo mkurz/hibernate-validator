@@ -17,7 +17,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,7 +44,7 @@ public class ReflectionHelperTest {
 		assertTrue( ReflectionHelper.isIterable( TreeSet.class ) );
 
 		assertTrue( ReflectionHelper.isIterable( List.class ) );
-		assertTrue( ReflectionHelper.isIterable( HashSet.class ) );
+		assertTrue( ReflectionHelper.isIterable( LinkedHashSet.class ) );
 		assertTrue( ReflectionHelper.isIterable( Iterable.class ) );
 		assertTrue( ReflectionHelper.isIterable( Collection.class ) );
 
@@ -62,7 +62,7 @@ public class ReflectionHelperTest {
 		assertTrue( ReflectionHelper.isCollection( type ) );
 
 		assertTrue( ReflectionHelper.isCollection( TreeSet.class ) );
-		assertTrue( ReflectionHelper.isCollection( HashSet.class ) );
+		assertTrue( ReflectionHelper.isCollection( LinkedHashSet.class ) );
 		type = TestTypes.class.getField( "floatSet" ).getGenericType();
 		assertTrue( ReflectionHelper.isCollection( type ) );
 

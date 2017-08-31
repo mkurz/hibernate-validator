@@ -8,7 +8,7 @@ package org.hibernate.validator.test.constraints;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import javax.validation.constraints.Size;
@@ -69,7 +69,7 @@ public class Suburb {
 
 	public void addStreetName(String streetName) {
 		if ( streetNames == null ) {
-			streetNames = new HashSet<String>();
+			streetNames = new LinkedHashSet<String>();
 		}
 		streetNames.add( streetName );
 	}
