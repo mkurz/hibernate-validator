@@ -14,7 +14,6 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedLinkedHashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -45,7 +44,7 @@ public class ValueExtractorManager {
 	public static final Set<ValueExtractorDescriptor> SPEC_DEFINED_EXTRACTORS;
 
 	static {
-		LinkedLinkedHashSet<ValueExtractorDescriptor> specDefinedExtractors = new LinkedLinkedHashSet<>();
+		LinkedHashSet<ValueExtractorDescriptor> specDefinedExtractors = new LinkedHashSet<>();
 
 		if ( isJavaFxInClasspath() ) {
 			specDefinedExtractors.add( ObservableValueValueExtractor.DESCRIPTOR );
