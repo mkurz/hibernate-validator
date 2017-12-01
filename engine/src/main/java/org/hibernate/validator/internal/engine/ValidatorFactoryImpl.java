@@ -183,7 +183,8 @@ public class ValidatorFactoryImpl implements HibernateValidatorFactory {
 				getTemporalValidationTolerance( configurationState, properties ),
 				getScriptEvaluatorFactory( configurationState, properties, externalClassLoader ),
 				getFailFast( hibernateSpecificConfig, properties ),
-				getTraversableResolverResultCacheEnabled( hibernateSpecificConfig, properties )
+				getTraversableResolverResultCacheEnabled( hibernateSpecificConfig, properties ),
+				null
 		);
 
 		if ( LOG.isDebugEnabled() ) {
@@ -669,8 +670,10 @@ public class ValidatorFactoryImpl implements HibernateValidatorFactory {
 		 */
 		private final boolean traversableResolverResultCacheEnabled;
 
+		private final Object dynamicPayload;
+
 		private ValidatorFactoryScopedContext(MessageInterpolator messageInterpolator, TraversableResolver traversableResolver, ExecutableParameterNameProvider parameterNameProvider, ClockProvider clockProvider, Duration temporalValidationTolerance,
-											  ScriptEvaluatorFactory scriptEvaluatorFactory, boolean failFast, boolean traversableResolverResultCacheEnabled) {
+											  ScriptEvaluatorFactory scriptEvaluatorFactory, boolean failFast, boolean traversableResolverResultCacheEnabled, Object dynamicPayload) {
 			this.messageInterpolator = messageInterpolator;
 			this.traversableResolver = traversableResolver;
 			this.parameterNameProvider = parameterNameProvider;
@@ -679,6 +682,7 @@ public class ValidatorFactoryImpl implements HibernateValidatorFactory {
 			this.scriptEvaluatorFactory = scriptEvaluatorFactory;
 			this.failFast = failFast;
 			this.traversableResolverResultCacheEnabled = traversableResolverResultCacheEnabled;
+			this.dynamicPayload = dynamicPayload;
 		}
 
 		public MessageInterpolator getMessageInterpolator() {
@@ -713,6 +717,10 @@ public class ValidatorFactoryImpl implements HibernateValidatorFactory {
 			return this.traversableResolverResultCacheEnabled;
 		}
 
+		public Object getDynamicPayload() {
+			return this.dynamicPayload;
+		}
+
 		static class Builder {
 			private final ValidatorFactoryScopedContext defaultContext;
 
@@ -724,9 +732,10 @@ public class ValidatorFactoryImpl implements HibernateValidatorFactory {
 			private Duration temporalValidationTolerance;
 			private boolean failFast;
 			private boolean traversableResolverResultCacheEnabled;
+			private Object dynamicPayload;
 
 			Builder(ValidatorFactoryScopedContext defaultContext) {
-				this.defaultContext = defaultContext != null ? defaultContext : new ValidatorFactoryScopedContext( null, null, null, null, null, null, false, false );
+				this.defaultContext = defaultContext != null ? defaultContext : new ValidatorFactoryScopedContext( null, null, null, null, null, null, false, false, null );
 
 				this.messageInterpolator = defaultContext.messageInterpolator;
 				this.traversableResolver = defaultContext.traversableResolver;
@@ -736,6 +745,7 @@ public class ValidatorFactoryImpl implements HibernateValidatorFactory {
 				this.temporalValidationTolerance = defaultContext.temporalValidationTolerance;
 				this.failFast = defaultContext.failFast;
 				this.traversableResolverResultCacheEnabled = defaultContext.traversableResolverResultCacheEnabled;
+				this.dynamicPayload = defaultContext.dynamicPayload;
 			}
 
 			public Builder setMessageInterpolator(MessageInterpolator messageInterpolator) {
@@ -804,6 +814,16 @@ public class ValidatorFactoryImpl implements HibernateValidatorFactory {
 				return this;
 			}
 
+			public Builder setDynamicPayload(Object dynamicPayload) {
+				if ( scriptEvaluatorFactory == null ) {
+					this.dynamicPayload = defaultContext.dynamicPayload;
+				}
+				else {
+					this.dynamicPayload = dynamicPayload;
+				}
+				return this;
+			}
+
 			public ValidatorFactoryScopedContext build() {
 				return new ValidatorFactoryScopedContext(
 						messageInterpolator,
@@ -813,7 +833,8 @@ public class ValidatorFactoryImpl implements HibernateValidatorFactory {
 						temporalValidationTolerance,
 						scriptEvaluatorFactory,
 						failFast,
-						traversableResolverResultCacheEnabled
+						traversableResolverResultCacheEnabled,
+						dynamicPayload
 				);
 			}
 		}
