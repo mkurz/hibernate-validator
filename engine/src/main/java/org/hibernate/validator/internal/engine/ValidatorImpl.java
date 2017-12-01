@@ -148,6 +148,37 @@ public class ValidatorImpl implements Validator, ExecutableValidator {
 		this.constraintValidatorInitializationContext = new HibernateConstraintValidatorInitializationContextImpl( validatorScopedContext.getScriptEvaluatorFactory(), validatorScopedContext.getClockProvider(), validatorScopedContext.getTemporalValidationTolerance(), null );
 	}
 
+	private ValidatorImpl(ConstraintValidatorFactory constraintValidatorFactory,
+			BeanMetaDataManager beanMetaDataManager,
+			ValueExtractorManager valueExtractorManager,
+			ConstraintValidatorManager constraintValidatorManager,
+			ValidationOrderGenerator validationOrderGenerator,
+			TraversableResolver traversableResolver,
+			ValidatorScopedContext validatorScopedContext,
+			Object dynamicPayload) {
+		this.constraintValidatorFactory = constraintValidatorFactory;
+		this.beanMetaDataManager = beanMetaDataManager;
+		this.valueExtractorManager = valueExtractorManager;
+		this.constraintValidatorManager = constraintValidatorManager;
+		this.validationOrderGenerator = validationOrderGenerator;
+		this.validatorScopedContext = new ValidatorScopedContext( validatorScopedContext );
+		this.traversableResolver = traversableResolver;
+		this.constraintValidatorInitializationContext = new HibernateConstraintValidatorInitializationContextImpl( validatorScopedContext.getScriptEvaluatorFactory(), validatorScopedContext.getClockProvider(), validatorScopedContext.getTemporalValidationTolerance(), dynamicPayload );
+	}
+
+	public ValidatorImpl withConstraintValidatorDynamicPayload(Object dynamicPayload) {
+		return new ValidatorImpl(
+			constraintValidatorFactory,
+			beanMetaDataManager,
+			valueExtractorManager,
+			constraintValidatorManager,
+			validationOrderGenerator,
+			traversableResolver,
+			validatorScopedContext,
+			dynamicPayload
+		);
+	}
+
 	@Override
 	public final <T> Set<ConstraintViolation<T>> validate(T object, Class<?>... groups) {
 		Contracts.assertNotNull( object, MESSAGES.validatedObjectMustNotBeNull() );

@@ -724,6 +724,17 @@ public class ValidationContext<T> {
 			this.dynamicPayload = validatorFactoryScopedContext.getDynamicPayload();
 		}
 
+		ValidatorScopedContext(ValidatorScopedContext validatorScopedContext) {
+			this.messageInterpolator = validatorScopedContext.getMessageInterpolator();
+			this.parameterNameProvider = validatorScopedContext.getParameterNameProvider();
+			this.clockProvider = validatorScopedContext.getClockProvider();
+			this.temporalValidationTolerance = validatorScopedContext.getTemporalValidationTolerance();
+			this.scriptEvaluatorFactory = validatorScopedContext.getScriptEvaluatorFactory();
+			this.failFast = validatorScopedContext.isFailFast();
+			this.traversableResolverResultCacheEnabled = validatorScopedContext.isTraversableResolverResultCacheEnabled();
+			this.dynamicPayload = validatorScopedContext.getDynamicPayload();
+		}
+
 		public MessageInterpolator getMessageInterpolator() {
 			return this.messageInterpolator;
 		}
