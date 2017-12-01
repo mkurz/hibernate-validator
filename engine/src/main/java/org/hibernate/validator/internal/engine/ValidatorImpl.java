@@ -148,7 +148,7 @@ public class ValidatorImpl implements Validator, ExecutableValidator {
 		this.constraintValidatorInitializationContext = new HibernateConstraintValidatorInitializationContextImpl( validatorScopedContext.getScriptEvaluatorFactory(), validatorScopedContext.getClockProvider(), validatorScopedContext.getTemporalValidationTolerance(), null );
 	}
 
-	public ValidatorImpl withDynamicConstraintValidatorInitializationPayload(Object dynamicPayload) {
+	public ValidatorImpl withConstraintValidatorDynamicPayload(Object dynamicPayload) {
 		this.constraintValidatorInitializationContext = new HibernateConstraintValidatorInitializationContextImpl(
 			this.validatorScopedContext.getScriptEvaluatorFactory(),
 			this.constraintValidatorInitializationContext.getClockProvider(),
