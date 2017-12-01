@@ -12,6 +12,7 @@ import java.time.Duration;
 import javax.validation.ClockProvider;
 
 import org.hibernate.validator.Incubating;
+import org.hibernate.validator.internal.engine.ValidatorImpl;
 import org.hibernate.validator.spi.scripting.ScriptEvaluator;
 import org.hibernate.validator.spi.scripting.ScriptEvaluatorFactory;
 import org.hibernate.validator.spi.scripting.ScriptEvaluatorNotFoundException;
@@ -55,4 +56,12 @@ public interface HibernateConstraintValidatorInitializationContext {
 	 * @return the tolerance
 	 */
 	Duration getTemporalValidationTolerance();
+
+	/**
+	 * @param type The type of payload to retrieve
+	 * @return an instance of the specified type set by the user via
+	 * {@link ValidatorImpl#withDynamicConstraintValidatorInitializationPayload(Object)} or {@code null} if no constraint payload
+	 * if the given type has been set.
+	 */
+	<C> C getDynamicPayload(Class<C> type);
 }

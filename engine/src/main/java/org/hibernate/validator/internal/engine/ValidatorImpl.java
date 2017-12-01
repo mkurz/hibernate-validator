@@ -130,7 +130,7 @@ public class ValidatorImpl implements Validator, ExecutableValidator {
 	 * The constraint initialization context is stored at this level to prevent creating a new instance each time we
 	 * initialize a new constraint validator as, for now, it only contains Validator scoped objects.
 	 */
-	private final HibernateConstraintValidatorInitializationContext constraintValidatorInitializationContext;
+	private HibernateConstraintValidatorInitializationContext constraintValidatorInitializationContext;
 
 	public ValidatorImpl(ConstraintValidatorFactory constraintValidatorFactory,
 			BeanMetaDataManager beanMetaDataManager,
@@ -145,7 +145,16 @@ public class ValidatorImpl implements Validator, ExecutableValidator {
 		this.validationOrderGenerator = validationOrderGenerator;
 		this.validatorScopedContext = new ValidatorScopedContext( validatorFactoryScopedContext );
 		this.traversableResolver = validatorFactoryScopedContext.getTraversableResolver();
-		this.constraintValidatorInitializationContext = new HibernateConstraintValidatorInitializationContextImpl( validatorScopedContext.getScriptEvaluatorFactory(), validatorScopedContext.getClockProvider(), validatorScopedContext.getTemporalValidationTolerance() );
+		this.constraintValidatorInitializationContext = new HibernateConstraintValidatorInitializationContextImpl( validatorScopedContext.getScriptEvaluatorFactory(), validatorScopedContext.getClockProvider(), validatorScopedContext.getTemporalValidationTolerance(), null );
+	}
+
+	public ValidatorImpl withDynamicConstraintValidatorInitializationPayload(Object dynamicPayload) {
+		this.constraintValidatorInitializationContext = new HibernateConstraintValidatorInitializationContextImpl(
+			this.validatorScopedContext.getScriptEvaluatorFactory(),
+			this.constraintValidatorInitializationContext.getClockProvider(),
+			this.constraintValidatorInitializationContext.getTemporalValidationTolerance(),
+			dynamicPayload );
+		return this;
 	}
 
 	@Override
