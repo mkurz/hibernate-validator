@@ -112,6 +112,8 @@ class ComposingConstraintTree<B extends Annotation> extends ConstraintTree<B> {
 			else {
 				compositionResult.setAllTrue( false );
 			}
+
+			validationContext.getConstraintValidatorManager().releaseUncachedConstraintValidatorInstance( validator, validationContext );
 		}
 		else {
 			localViolations = Collections.emptySet();

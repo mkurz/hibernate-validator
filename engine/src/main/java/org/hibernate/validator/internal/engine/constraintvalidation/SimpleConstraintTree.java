@@ -71,5 +71,7 @@ class SimpleConstraintTree<B extends Annotation> extends ConstraintTree<B> {
 						validator
 				)
 		);
+
+		validationContext.getConstraintValidatorManager().releaseUncachedConstraintValidatorInstance( validator, validationContext );
 	}
 }

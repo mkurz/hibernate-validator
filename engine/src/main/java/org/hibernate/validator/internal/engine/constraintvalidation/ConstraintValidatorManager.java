@@ -29,6 +29,7 @@ import javax.validation.metadata.ConstraintDescriptor;
 
 import org.hibernate.validator.constraintvalidation.HibernateConstraintValidator;
 import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorInitializationContext;
+import org.hibernate.validator.internal.engine.ValidationContext;
 import org.hibernate.validator.internal.metadata.descriptor.ConstraintDescriptorImpl;
 import org.hibernate.validator.internal.util.Contracts;
 import org.hibernate.validator.internal.util.TypeHelper;
@@ -197,6 +198,12 @@ public class ConstraintValidatorManager {
 			entry.getKey().getConstraintValidatorFactory().releaseInstance( entry.getValue() );
 		}
 		constraintValidatorCache.clear();
+	}
+
+	public void releaseUncachedConstraintValidatorInstance( ConstraintValidator<?, ?> constraintValidator, ValidationContext<?> validationContext ) {
+		if ( !cachingAllowed( constraintValidator, validationContext.getConstraintValidatorInitializationContext() ) ) {
+			validationContext.getConstraintValidatorFactory().releaseInstance( constraintValidator );
+		}
 	}
 
 	private static <A extends Annotation> boolean cachingAllowed( ConstraintValidator<A, ?> constraintValidator,
