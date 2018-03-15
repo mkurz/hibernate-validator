@@ -58,6 +58,11 @@ public class ConstraintValidatorInitializationHelper {
 		public <C> C getConstraintValidatorPayload(Class<C> type) {
 			return null;
 		}
+
+		@Override
+		public boolean hasConstraintValidatorPayload() {
+			return false;
+		}
 	};
 
 	private ConstraintValidatorInitializationHelper() {

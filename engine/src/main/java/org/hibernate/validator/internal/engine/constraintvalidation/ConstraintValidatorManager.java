@@ -118,9 +118,20 @@ public class ConstraintValidatorManager {
 		@SuppressWarnings("unchecked")
 		ConstraintValidator<A, ?> constraintValidator = (ConstraintValidator<A, ?>) constraintValidatorCache.get( key );
 
+		if ( !cachingAllowed( constraintValidator, initializationContext ) ) {
+			// Do not use the cached (hibernate) constraint validator because a payload is given.
+			// Because we don't cache (hibernate) constraint validators with payloads we always create a new constraint validator instance receiving that payload.
+			constraintValidator = null;
+		}
+
 		if ( constraintValidator == null ) {
 			constraintValidator = createAndInitializeValidator( validatedValueType, descriptor, constraintValidatorFactory, initializationContext );
-			constraintValidator = cacheValidator( key, constraintValidator );
+			if ( cachingAllowed( constraintValidator, initializationContext ) ) {
+				// Caching a (hibernate) constraint validator with a payload is a very bad idea because there could be many many different payloads.
+				// E.g. in a web app a new payload could be created for each request. Such payloads would be of use for a request lifetime, but not the whole app lifetime.
+				// Many requests -> many (cached) payloads -> memory leak!
+				constraintValidator = cacheValidator( key, constraintValidator );
+			}
 		}
 		else {
 			LOG.tracef( "Constraint validator %s found in cache.", constraintValidator );
@@ -186,6 +197,11 @@ public class ConstraintValidatorManager {
 			entry.getKey().getConstraintValidatorFactory().releaseInstance( entry.getValue() );
 		}
 		constraintValidatorCache.clear();
+	}
+
+	private static <A extends Annotation> boolean cachingAllowed( ConstraintValidator<A, ?> constraintValidator,
+			HibernateConstraintValidatorInitializationContext initializationContext ) {
+		return !( constraintValidator instanceof HibernateConstraintValidator ) || !initializationContext.hasConstraintValidatorPayload();
 	}
 
 	public ConstraintValidatorFactory getDefaultConstraintValidatorFactory() {

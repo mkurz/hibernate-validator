@@ -78,4 +78,14 @@ public interface HibernateConstraintValidatorInitializationContext {
 	 * @see HibernateValidatorConfiguration#constraintValidatorPayload(Object)
 	 */
 	<C> C getConstraintValidatorPayload(Class<C> type);
+
+	/**
+	 * Returns a boolean that indicates if a constraint validator payload exists.
+	 *
+	 * @return true if a constraint validator payload exists, otherwise false
+	 *
+	 * @since 6.0.9
+	 * @see HibernateValidatorConfiguration#constraintValidatorPayload(Object)
+	 */
+	boolean hasConstraintValidatorPayload();
 }

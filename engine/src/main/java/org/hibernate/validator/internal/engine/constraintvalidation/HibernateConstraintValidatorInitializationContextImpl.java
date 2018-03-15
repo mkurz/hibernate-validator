@@ -64,4 +64,9 @@ public class HibernateConstraintValidatorInitializationContextImpl implements Hi
 			return null;
 		}
 	}
+
+	@Override
+	public boolean hasConstraintValidatorPayload() {
+		return constraintValidatorPayload != null;
+	}
 }
