@@ -40,6 +40,15 @@ public interface HibernateConstraintValidatorInitializationContext {
 	ScriptEvaluator getScriptEvaluatorForLanguage(String languageName);
 
 	/**
+	 * Returns a {@link ScriptEvaluatorFactory} passed at bootstrap.
+	 *
+	 * @return a script evaluator factory. Never null.
+	 *
+	 * @since 6.0.9
+	 */
+	ScriptEvaluatorFactory getScriptEvaluatorFactory();
+
+	/**
 	 * Returns the provider for obtaining the current time in the form of a {@link Clock}, e.g. when validating the
 	 * {@code Future} and {@code Past} constraints.
 	 *

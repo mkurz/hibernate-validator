@@ -11,6 +11,7 @@ import static org.hibernate.validator.internal.util.CollectionHelper.newArrayLis
 import java.lang.annotation.Annotation;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Type;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.validation.ClockProvider;
 import javax.validation.ConstraintDeclarationException;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -33,6 +35,7 @@ import org.hibernate.validator.internal.util.TypeHelper;
 import org.hibernate.validator.internal.util.annotation.ConstraintAnnotationDescriptor;
 import org.hibernate.validator.internal.util.logging.Log;
 import org.hibernate.validator.internal.util.logging.LoggerFactory;
+import org.hibernate.validator.spi.scripting.ScriptEvaluatorFactory;
 
 /**
  * Manager in charge of providing and caching initialized {@code ConstraintValidator} instances.
@@ -110,7 +113,7 @@ public class ConstraintValidatorManager {
 		Contracts.assertNotNull( constraintValidatorFactory );
 		Contracts.assertNotNull( initializationContext );
 
-		CacheKey key = new CacheKey( descriptor.getAnnotationDescriptor(), validatedValueType, constraintValidatorFactory );
+		CacheKey key = new CacheKey( descriptor.getAnnotationDescriptor(), validatedValueType, constraintValidatorFactory, initializationContext );
 
 		@SuppressWarnings("unchecked")
 		ConstraintValidator<A, ?> constraintValidator = (ConstraintValidator<A, ?>) constraintValidatorCache.get( key );
@@ -281,12 +284,18 @@ public class ConstraintValidatorManager {
 		private final ConstraintAnnotationDescriptor<?> annotationDescriptor;
 		private final Type validatedType;
 		private final ConstraintValidatorFactory constraintValidatorFactory;
+		private final ScriptEvaluatorFactory scriptEvaluatorFactory;
+		private final ClockProvider clockProvider;
+		private final Duration temporalValidationTolerance;
 		private final int hashCode;
 
-		private CacheKey(ConstraintAnnotationDescriptor<?> annotationDescriptor, Type validatorType, ConstraintValidatorFactory constraintValidatorFactory) {
+		private CacheKey(ConstraintAnnotationDescriptor<?> annotationDescriptor, Type validatorType, ConstraintValidatorFactory constraintValidatorFactory, HibernateConstraintValidatorInitializationContext initializationContext) {
 			this.annotationDescriptor = annotationDescriptor;
 			this.validatedType = validatorType;
 			this.constraintValidatorFactory = constraintValidatorFactory;
+			this.scriptEvaluatorFactory = initializationContext.getScriptEvaluatorFactory();
+			this.clockProvider = initializationContext.getClockProvider();
+			this.temporalValidationTolerance = initializationContext.getTemporalValidationTolerance();
 			this.hashCode = createHashCode();
 		}
 
@@ -314,6 +323,15 @@ public class ConstraintValidatorManager {
 			if ( !constraintValidatorFactory.equals( cacheKey.constraintValidatorFactory ) ) {
 				return false;
 			}
+			if ( !scriptEvaluatorFactory.equals( cacheKey.scriptEvaluatorFactory ) ) {
+				return false;
+			}
+			if ( !clockProvider.equals( cacheKey.clockProvider ) ) {
+				return false;
+			}
+			if ( !temporalValidationTolerance.equals( cacheKey.temporalValidationTolerance ) ) {
+				return false;
+			}
 
 			return true;
 		}
@@ -327,6 +345,9 @@ public class ConstraintValidatorManager {
 			int result = annotationDescriptor.hashCode();
 			result = 31 * result + validatedType.hashCode();
 			result = 31 * result + constraintValidatorFactory.hashCode();
+			result = 31 * result + scriptEvaluatorFactory.hashCode();
+			result = 31 * result + clockProvider.hashCode();
+			result = 31 * result + temporalValidationTolerance.hashCode();
 			return result;
 		}
 	}

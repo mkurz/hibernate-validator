@@ -41,6 +41,11 @@ public class HibernateConstraintValidatorInitializationContextImpl implements Hi
 	}
 
 	@Override
+	public ScriptEvaluatorFactory getScriptEvaluatorFactory() {
+		return scriptEvaluatorFactory;
+	}
+
+	@Override
 	public ClockProvider getClockProvider() {
 		return clockProvider;
 	}

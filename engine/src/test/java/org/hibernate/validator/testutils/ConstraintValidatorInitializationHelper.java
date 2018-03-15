@@ -40,6 +40,11 @@ public class ConstraintValidatorInitializationHelper {
 		}
 
 		@Override
+		public ScriptEvaluatorFactory getScriptEvaluatorFactory() {
+			return scriptEvaluatorFactory;
+		}
+
+		@Override
 		public ClockProvider getClockProvider() {
 			return DefaultClockProvider.INSTANCE;
 		}
